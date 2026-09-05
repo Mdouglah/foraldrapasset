@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Föräldrapasset</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== CSS ===== (Oförändrad) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f2ee;
+            color: #1e2a24;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 760px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(44, 95, 74, 0.10);
+            padding: 40px 36px;
+        }
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-family: 'Fraunces', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c5f4a;
+            cursor: pointer;
+        }
+        .logo span {
+            color: #d49a4a;
+        }
+        .badge {
+            background: #2c5f4a;
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 4px 14px;
+            border-radius: 40px;
+        }
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        h1 .highlight {
+            color: #2c5f4a;
+            border-bottom: 3px solid #d49a4a;
+            padding-bottom: 2px;
+        }
+        .sub {
+            color: #5a6b62;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        .sub span {
+            background: #f5f2ee;
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-weight: 500;
+            color: #2c5f4a;
+        }
+        .news {
+            background: #f0f5f2;
+            border-left: 4px solid #d49a4a;
+            padding: 12px 18px;
+            border-radius: 10px;
+            margin: 24px 0 28px;
+            font-size: 14px;
+        }
+        .news .label {
+            font-weight: 600;
+            color: #2c5f4a;
+        }
+        .chat-prompt {
+            background: #f5f2ee;
+            border-radius: 12px;
+            padding: 20px 24px;
+            border: 1px solid #dde3de;
+            margin-bottom: 24px;
+        }
+        .chat-prompt .label {
+            font-weight: 600;
+            color: #2c5f4a;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .chat-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .chat-examples .example {
+            background: white;
+            border: 1px solid #dde3de;
+            border-radius: 40px;
+            padding: 6px 16px;
+            font-size: 13px;
+            color: #1e2a24;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .chat-examples .example:hover {
+            background: #2c5f4a;
+            color: white;
+            border-color: #2c5f4a;
+        }
+        .chat-input-row {
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input-row input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid #dde3de;
+            border-radius: 40px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            outline: none;
+        }
+        .chat-input-row input:focus {
+            border-color: #2c5f4a;
+        }
+        .chat-input-row button {
+            background: #2c5f4a;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 10px 24px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.2s;
+        }
+        .chat-input-row button:hover {
+            background: #3d7a62;
+        }
+        .chat-response {
+            display: none;
+            margin-top: 20px;
+            padding: 20px 22px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #dde3de;
+            animation: fade 0.3s ease;
+        }
+        .chat-response.visible {
+            display: block;
+        }
+        .chat-response .question {
+            font-size: 14px;
+            color: #5a6b62;
+            margin-bottom: 10px;
+        }
+        .chat-response .answer {
+            font-size: 15px;
+            color: #1e2a24;
+            line-height: 1.7;
+        }
+        .chat-response .answer ul {
+            margin: 8px 0 0 18px;
+            padding: 0;
+        }
+        .chat-response .answer ul li {
+            margin-bottom: 4px;
+        }
+        .chat-response .answer .highlight-text {
+            color: #2c5f4a;
+            font-weight: 600;
+        }
+        .chat-response .answer .box {
+            background: #f5f2ee;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+            border-left: 3px solid #d49a4a;
+        }
+        .chat-response .tags {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .chat-response .tags .tag {
+            font-size: 12px;
+            background: #f5f2ee;
+            color: #5a6b62;
+            padding: 2px 12px;
+            border-radius: 30px;
+        }
+        @keyframes fade {
+            0% {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .action-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0 16px;
+        }
+        .action-btn {
+            flex: 1;
+            min-width: 140px;
+            background: transparent;
+            border: 1.5px solid #2c5f4a;
+            color: #2c5f4a;
+            padding: 12px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: 0.2s;
+            text-align: center;
+        }
+        .action-btn:hover {
+            background: #2c5f4a;
+            color: white;
+        }
+        .action-btn .icon {
+            margin-right: 6px;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: white;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 20px;
+            padding: 32px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes slideUp {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .modal-header h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 500;
+            color: #2c5f4a;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #5a6b62;
+            padding: 0 4px;
+            transition: 0.2s;
+        }
+        .modal-close:hover {
+            color: #1e2a24;
+        }
+        .reaction-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .reaction-categories .cat-btn {
+            background: #f5f2ee;
+            border: 1px solid #dde3de;
+            border-radius: 40px;
+            padding: 6px 18px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: 0.2s;
+            color: #1e2a24;
+        }
+        .reaction-categories .cat-btn.active {
+            background: #2c5f4a;
+            color: white;
+            border-color: #2c5f4a;
+        }
+        .reaction-categories .cat-btn:hover:not(.active) {
+            border-color: #2c5f4a;
+        }
+        .reaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .reaction-list .reaction-item {
+            background: #f5f2ee;
+            border: 1px solid #dde3de;
+            border-radius: 10px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+            text-align: left;
+            font-size: 14px;
+            color: #1e2a24;
+        }
+        .reaction-list .reaction-item:hover {
+            border-color: #2c5f4a;
+            background: #f0f5f2;
+        }
+        .reaction-list .reaction-item .item-label {
+            font-weight: 500;
+        }
+        .reaction-list .reaction-item .item-desc {
+            font-size: 13px;
+            color: #5a6b62;
+            font-weight: 400;
+        }
+        .reaction-result {
+            display: none;
+            background: #f0f5f2;
+            border-radius: 12px;
+            padding: 20px 22px;
+            border-left: 4px solid #d49a4a;
+            margin-top: 8px;
+            animation: fade 0.3s ease;
+        }
+        .reaction-result.visible {
+            display: block;
+        }
+        .reaction-result .result-scenario {
+            font-size: 14px;
+            color: #5a6b62;
+            margin-bottom: 6px;
+        }
+        .reaction-result .result-scenario strong {
+            color: #1e2a24;
+        }
+        .reaction-result .result-answer {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .reaction-result .result-answer .box {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 8px 0;
+            font-size: 14px;
+            border-left: 3px solid #d49a4a;
+        }
+        .reaction-result .result-answer .highlight-text {
+            color: #2c5f4a;
+            font-weight: 600;
+        }
+        .reaction-result .result-why {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #dde3de;
+            font-size: 14px;
+            color: #5a6b62;
+        }
+        .reaction-result .result-why strong {
+            color: #1e2a24;
+        }
+        .footer {
+            margin-top: 32px;
+            padding-top: 18px;
+            border-top: 1px solid #dde3de;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 14px;
+            color: #5a6b62;
+        }
+        .footer .by strong {
+            color: #2c5f4a;
+        }
+        .footer .links {
+            display: flex;
+            gap: 18px;
+        }
+        .footer .links a {
+            color: #5a6b62;
+            text-decoration: none;
+        }
+        .footer .links a:hover {
+            color: #2c5f4a;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 16px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+            .chat-input-row {
+                flex-direction: column;
+            }
+            .chat-input-row button {
+                width: 100%;
+            }
+            .top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            .modal-box {
+                padding: 24px 18px;
+            }
+            .action-btn {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="top">
+            <div class="logo" onclick="resetChat()">Föräldra<span>passet</span></div>
+            <div class="badge">✨ Beta</div>
+        </div>
+
+        <h1>
+            Vägledning för <span class="highlight">föräldrar</span> som vill nå fram
+        </h1>
+        <p style="color:#5a6b62; font-size:17px;">Skolan · Samtalet · Gränser · Rättigheter</p>
+        <div class="sub">
+            <span>Barn 6–16 år</span> &nbsp;·&nbsp; 7 års erfarenhet som skolkurator
+        </div>
+
+        <div class="news">
+            <span class="label">🧩 Nytt:</span> Biobiljett-liknelsen och fler scenarier i Reaktionsguiden!
+        </div>
+
+        <div class="action-row">
+            <button class="action-btn" id="openGuideBtn">
+                <span class="icon">🧭</span> Guidat läge
+            </button>
+            <button class="action-btn" id="openReactionBtn">
+                <span class="icon">🛠️</span> Reaktionsguiden
+            </button>
+        </div>
+
+        <div class="chat-prompt">
+            <div class="label">💬 Prova i chattläget</div>
+            <div class="chat-examples" id="exampleContainer">
+                <span class="example" data-question="Mitt barn vägrar gå till skolan">Mitt barn vägrar gå till skolan</span>
+                <span class="example" data-question="Min dotter pratar inte med mig">Min dotter pratar inte med mig</span>
+                <span class="example" data-question="Skolan gör ingenting — vad gör jag?">Skolan gör ingenting</span>
+                <span class="example" data-question="Min son bestämmer allt hemma">Min son bestämmer allt</span>
+                <span class="example" data-question="Vad har jag rätt till som förälder?">Vad har jag rätt till?</span>
+                <span class="example" data-question="Hur kan jag använda skolan som hjälp?">Använda skolan som hjälp</span>
+                <span class="example" data-question="Jag orkar inte mer">Jag orkar inte mer</span>
+                <span class="example" data-question="Berätta om biobiljett-liknelsen">🎬 Biobiljett-liknelsen</span>
+                <span class="example" data-question="Vad är en åtgärdsprogram?">Vad är ett åtgärdsprogram?</span>
+            </div>
+            <div class="chat-input-row">
+                <input type="text" id="chatInput" placeholder="Skriv din fråga här..." />
+                <button id="sendBtn">Skicka</button>
+            </div>
+            <div class="chat-response" id="chatResponse">
+                <div class="question">❓ <strong id="responseQuestion"></strong></div>
+                <div class="answer" id="responseAnswer"></div>
+                <div class="tags" id="responseTags"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="by">av <strong>MD</strong> · skolkurator i 7 år</div>
+            <div class="links">
+                <a href="#">Om kursen</a>
+                <a href="#">FAQ</a>
+                <a href="#">Kontakt</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== REAKTIONSGUIDEN MODAL ===== -->
+    <div class="modal-overlay" id="reactionModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>🛠️ Reaktionsguiden</h2>
+                <button class="modal-close" id="closeReactionBtn">✕</button>
+            </div>
+
+            <p style="font-size:14px; color:#5a6b62; margin-bottom:16px;">
+                Välj vad ditt barn säger eller gör — och få ett exakt svar.
+            </p>
+
+            <div class="reaction-categories" id="reactionCategories">
+                <button class="cat-btn active" data-category="all">Alla</button>
+                <button class="cat-btn" data-category="vagar">🚫 Vägrar</button>
+                <button class="cat-btn" data-category="skriker">😤 Skriker</button>
+                <button class="cat-btn" data-category="ledsen">😢 Ledsen</button>
+                <button class="cat-btn" data-category="tyst">🤐 Tyst</button>
+                <button class="cat-btn" data-category="hotar">⚠️ Hotar</button>
+                <button class="cat-btn" data-category="skola">🏫 Skolan</button>
+            </div>
+
+            <div class="reaction-list" id="reactionList">
+                <!-- Fylls av JavaScript -->
+            </div>
+
+            <div class="reaction-result" id="reactionResult">
+                <div class="result-scenario">💬 <strong id="resultScenario"></strong></div>
+                <div class="result-answer" id="resultAnswer"></div>
+                <div class="result-why" id="resultWhy"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // =============================================
+        // DATA — Reaktionsguiden (UTÖKAD)
+        // =============================================
+        const reactionData = [{
+            id: 1,
+            category: 'vagar',
+            label: 'Barnet säger "Jag går inte till skolan!"',
+            desc: 'Trotsig, bestämd, vägrar',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag hör att du verkligen inte vill gå till skolan. Det är okej att känna så. Men idag är det skola som gäller. Jag hjälper dig."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du bekräftar känslan men håller fast vid ramen.</p>
+            `,
+            why: 'Barnet känner sig hörd samtidigt som du håller fast vid att skolan är icke-förhandlingsbar.'
+        }, {
+            id: 2,
+            category: 'vagar',
+            label: 'Barnet säger "Du kan inte tvinga mig!"',
+            desc: 'Utmanar din auktoritet',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Nej, jag kan inte tvinga dig. Men jag kan bestämma vad som händer här hemma. Och jag älskar dig för mycket för att låta dig vara hemma och göra ingenting."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du erkänner din maktlöshet att tvinga — men visar att du har makt över hemmet.</p>
+            `,
+            why: 'Barnet testar gränsen. Du sätter en tydlig gräns utan att hamna i en maktkamp.'
+        }, {
+            id: 3,
+            category: 'vagar',
+            label: 'Barnet säger "Alla andra får bestämma!"',
+            desc: 'Jämför med andra, känner sig orättvist behandlad',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag är inte alla andra. Jag är din förälder och jag älskar dig. Och för att jag älskar dig så måste jag ibland bestämma saker som du inte gillar."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du duckar för jämförelsen och fokuserar på eran relation.</p>
+            `,
+            why: 'Genom att inte gå in i diskussionen om vad "alla andra" får, tar du bort kraften i argumentet.'
+        }, {
+            id: 4,
+            category: 'skriker',
+            label: 'Barnet skriker "Jag hatar dig!"',
+            desc: 'Raseri, ilska, frustration',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag förstår att du är jättearg just nu. Jag älskar dig ändå. Jag finns här när du vill prata lugnt."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du bekräftar ilskan utan att ta den personligt.</p>
+            `,
+            why: 'Barnets ilska handlar om frustration eller rädsla — inte om dig.'
+        }, {
+            id: 5,
+            category: 'skriker',
+            label: 'Barnet skriker "Det är inte rättvist!"',
+            desc: 'Argt, känner sig orättvist behandlad',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag förstår att du tycker det är orättvist. Jag förstår att du är arg. Men det här har jag bestämt — och jag tänker inte ändra mig."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du bekräftar känslan men håller fast vid beslutet.</p>
+            `,
+            why: 'Barnet vill bli hörd. Du lyssnar men låter dig inte styras.'
+        }, {
+            id: 6,
+            category: 'ledsen',
+            label: 'Barnet gråter och säger "Ingen förstår mig"',
+            desc: 'Ledsen, ensam, missförstådd',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag hör dig. Det måste kännas väldigt ensamt. Jag vill förstå dig — kan du berätta mer?"</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du bekräftar känslan utan att försöka lösa problemet.</p>
+            `,
+            why: 'Barn i kris behöver ofta bli sedda och hörda innan de kan ta emot råd.'
+        }, {
+            id: 7,
+            category: 'ledsen',
+            label: 'Barnet säger "Det spelar ingen roll ändå"',
+            desc: 'Uppgiven, apatisk, hopplös',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Det gör ont att höra dig säga så. För mig spelar det roll. Och jag kommer inte att ge upp på dig."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du bekräftar att du hör allvaret. Du visar att du inte ger upp.</p>
+            `,
+            why: 'Uppgivenhet är ofta en försvarsmekanism. Du bryter mönstret och visar att det finns hopp.'
+        }, {
+            id: 8,
+            category: 'tyst',
+            label: 'Barnet svarar inte alls',
+            desc: 'Tystnad, ignorerar, vänder ryggen',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag ser att du inte vill prata just nu. Det är okej. Jag finns här när du är redo."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du respekterar barnets behov av tystnad utan att backa.</p>
+            `,
+            why: 'Tystnad är ofta ett skydd, inte ett avvisande.'
+        }, {
+            id: 9,
+            category: 'tyst',
+            label: 'Barnet stänger in sig på rummet',
+            desc: 'Isolerar sig, drar sig undan',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag förstår att du behöver vara ensam just nu. Jag kommer tillbaka om 15 minuter och kollar hur du mår. Jag älskar dig."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du ger barnet utrymme men sätter en tidsgräns.</p>
+            `,
+            why: 'Barn som isolerar sig behöver veta att de inte är övergivna.'
+        }, {
+            id: 10,
+            category: 'hotar',
+            label: 'Barnet säger "Då rymmer jag!"',
+            desc: 'Hotar med att försvinna, lämna, rymma',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Det gör mig orolig att höra dig säga så. Jag vill verkligen att du ska stanna hos mig. Vad är det som känns så hopplöst?"</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du tar hotet på allvar utan att gå i en maktkamp.</p>
+            `,
+            why: 'Hot om rymning är ofta ett uttryck för hopplöshet.'
+        }, {
+            id: 11,
+            category: 'hotar',
+            label: 'Barnet säger "Då får du ingen julklapp!"',
+            desc: 'Försöker manipulera',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Julklappar handlar om kärlek, inte om belöning. Jag älskar dig oavsett — och jag ändrar inte mitt beslut."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du avväpnar manipulationen genom att skilja på kärlek och belöning.</p>
+            `,
+            why: 'Manipulation försvinner när den inte får någon effekt.'
+        }, {
+            id: 12,
+            category: 'skola',
+            label: 'Barnet säger "Lärarna bryr sig inte om mig"',
+            desc: 'Känner sig osynlig, ignorerad',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Det låter jättejobbigt. Jag ska prata med din lärare och berätta hur du känner. Du är inte osynlig."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du bekräftar känslan och erbjuder dig att agera som en brygga.</p>
+            `,
+            why: 'Barnet behöver veta att du tar deras känslor på allvar och agerar.'
+        }, {
+            id: 13,
+            category: 'skola',
+            label: 'Barnet säger "Jag är för dum för skolan"',
+            desc: 'Dålig självkänsla, ger upp',
+            answer: `
+                <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Det gör ont att höra dig säga så. Du är inte dum — du har bara inte fått rätt stöd än. Vi ska se till att du får det."</em></div>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du skiljer på person och situation. Det är inte hen som är problemet — det är stödet som saknas.</p>
+            `,
+            why: 'Barn med låg självkänsla behöver höra att det inte är deras fel.'
+        }];
+
+        // =============================================
+        // CHATT-DATA (UTÖKAD)
+        // =============================================
+        const answers = {
+
+            'mitt barn vägrar gå till skolan': {
+                answer: `
+                    <p><span class="highlight-text">Börja med att inte prata om skolan.</span></p>
+                    <ul>
+                        <li>Fråga: <em>"Vad är det jobbigaste just nu?"</em></li>
+                        <li>Berätta liknelsen om biobiljetten (sök på "biobiljett" i chatten).</li>
+                        <li>Prata med din partner <strong>om</strong> barnet, inte <strong>till</strong> barnet.</li>
+                    </ul>
+                    <p>Skolan är en <span class="highlight-text">rättighet</span>, inte en skyldighet.</p>
+                `,
+                tags: ['skolvägran', 'samtal']
+            },
+
+            'min dotter pratar inte med mig': {
+                answer: `
+                    <p><span class="highlight-text">Tystnad är ofta ett skydd.</span></p>
+                    <ul>
+                        <li><strong>Sluta fråga.</strong> Säg: <em>"Jag finns här när du vill prata."</em></li>
+                        <li><strong>Använd "bredvid-samtal".</strong> Promenera, laga mat.</li>
+                    </ul>
+                    <p>Ge henne <span class="highlight-text">utrymme</span> — men visa att du finns kvar.</p>
+                `,
+                tags: ['tystnad', 'relation']
+            },
+
+            'skolan gör ingenting — vad gör jag?': {
+                answer: `
+                    <p><span class="highlight-text">Begär en pedagogisk kartläggning — skriftligt.</span></p>
+                    <ul>
+                        <li>Skicka mejl till mentor/rektor.</li>
+                        <li>Begär svar inom 1–2 veckor.</li>
+                        <li>Spara mejlet.</li>
+                    </ul>
+                    <p>Kontakta <span class="highlight-text">Skolinspektionen</span> om inget händer.</p>
+                `,
+                tags: ['skolan', 'rättigheter']
+            },
+
+            'min son bestämmer allt hemma': {
+                answer: `
+                    <p><span class="highlight-text">Du har gett honom ett jobb han inte är redo för.</span></p>
+                    <ul>
+                        <li><strong>Börja med en sak.</strong> Bestäm en sak (middag, läggdags).</li>
+                        <li>Säg lugnt: <em>"Jag förstår att du är arg. Men det här har jag bestämt."</em></li>
+                        <li><strong>Stå fast.</strong> Ingen förhandling.</li>
+                    </ul>
+                `,
+                tags: ['gränser', 'föräldraskap']
+            },
+
+            'vad har jag rätt till som förälder?': {
+                answer: `
+                    <p><span class="highlight-text">Du har rätt att begära stöd — utan diagnos.</span></p>
+                    <ul>
+                        <li><strong>Begära pedagogisk kartläggning</strong></li>
+                        <li><strong>Läsa och kommentera</strong> åtgärdsprogrammet</li>
+                        <li><strong>Kräva uppföljningstid</strong></li>
+                        <li><strong>Kontakta Skolinspektionen</strong></li>
+                    </ul>
+                `,
+                tags: ['rättigheter', 'skollagen']
+            },
+
+            'hur kan jag använda skolan som hjälp': {
+                answer: `
+                    <p><span class="highlight-text">Skolan är din bästa resurs.</span></p>
+                    <ul>
+                        <li><strong>Begär kartläggning</strong> — skriftligt.</li>
+                        <li><strong>Boka möte med elevhälsan</strong> — kurator, psykolog.</li>
+                        <li><strong>Begär att läsa åtgärdsprogrammet</strong> innan det fastställs.</li>
+                    </ul>
+                `,
+                tags: ['skolan', 'samarbete']
+            },
+
+            'jag orkar inte mer': {
+                answer: `
+                    <p><span class="highlight-text">Du är inte ensam.</span></p>
+                    <ul>
+                        <li><strong>Ta en paus.</strong> Andas.</li>
+                        <li><strong>Prata med någon</strong> — vän, kurator.</li>
+                        <li><strong>Be om hjälp</strong> — från skolan, BUP.</li>
+                    </ul>
+                `,
+                tags: ['ork', 'stöd']
+            },
+
+            // ===== NYA FRÅGOR =====
+            'berätta om biobiljett-liknelsen': {
+                answer: `
+                    <div class="box">
+                        <strong>🎬 Biobiljett-liknelsen</strong><br>
+                        <em>"Tänk dig att du har köpt en biobiljett för 100 kronor. Du är inte tvungen att se filmen — men biljetten är redan betald. Om du väljer att inte gå in, försvinner inte pengarna, du får dem inte tillbaka. Skolan fungerar likadant: dina föräldrar har redan betalat skatt som täcker den. Att inte gå till skolan är som att ha biljetten i fickan och stå utanför biosalongen — pengarna är redan spenderade, oavsett om du går in eller inte. Frågan är bara om du väljer att få ut något av det du redan har rätt till."</em>
+                    </div>
+                    <p><span class="highlight-text">Varför den fungerar:</span> Den flyttar ansvaret till barnet som ett val, inte ett kommando. Den avdramatiserar konflikten och gör ett abstrakt resonemang begripligt.</p>
+                `,
+                tags: ['biobiljetten', 'samtal', 'perspektiv']
+            },
+
+            'vad är en åtgärdsprogram': {
+                answer: `
+                    <p><span class="highlight-text">Ett åtgärdsprogram är ett skriftligt dokument som beskriver vilket stöd ditt barn ska få i skolan.</span></p>
+                    <ul>
+                        <li><strong>Det ska innehålla:</strong> mål, insatser, tidplan och uppföljning.</li>
+                        <li><strong>Du har rätt</strong> att läsa och kommentera det innan det fastställs.</li>
+                        <li><strong>Uppföljning:</strong> Det ska finnas ett tydligt datum för när det följs upp.</li>
+                    </ul>
+                    <p><span class="highlight-text">Viktigt:</span> Åtgärdsprogrammet ska vara konkret — inte "vi hörs".</p>
+                `,
+                tags: ['åtgärdsprogram', 'rättigheter', 'skolan']
+            },
+
+            'hur pratar jag med läraren': {
+                answer: `
+                    <div class="box">
+                        <strong>✉️ Mejlmall till läraren:</strong><br>
+                        <em>"Hej [lärarens namn],<br><br>
+                        Jag är orolig för [barnets namn] och vill gärna prata med dig om hur vi kan stötta hen bättre i skolan.<br><br>
+                        Kan vi boka ett kort möte? Jag är tillgänglig [dagar/tider].<br><br>
+                        Med vänlig hälsning,<br>[ditt namn]"</em>
+                    </div>
+                    <p><strong>Tips inför mötet:</strong></p>
+                    <ul>
+                        <li>Var <span class="highlight-text">konkret</span> — ge exempel från hemmet.</li>
+                        <li>Fokusera på <span class="highlight-text">lösningar</span>.</li>
+                        <li>Få med dig <span class="highlight-text">nästa steg</span>.</li>
+                    </ul>
+                `,
+                tags: ['lärare', 'kommunikation', 'möte']
+            },
+
+            'vad gör jag när barnet skriker': {
+                answer: `
+                    <p><span class="highlight-text">När barnet skriker — sänk rösten.</span></p>
+                    <ul>
+                        <li><strong>1. Stanna upp.</strong> Andas.</li>
+                        <li><strong>2. Sänk rösten.</strong> Tala lugnt.</li>
+                        <li><strong>3. Bekräfta känslan:</strong> <em>"Jag hör att du är jättearg."</em></li>
+                        <li><strong>4. Sätt en gräns:</strong> <em>"Det är okej att vara arg, men det är inte okej att skrika."</em></li>
+                    </ul>
+                    <p><span class="highlight-text">Backa inte.</span> Stå fast — med värme.</p>
+                `,
+                tags: ['ilska', 'gränser', 'kommunikation']
+            }
+        };
+
+        // =============================================
+        // CHATT-FUNKTIONER
+        // =============================================
+
+        function getAnswer(question) {
+            const q = question.toLowerCase().trim();
+            if (answers[q]) return answers[q];
+            for (const [key, value] of Object.entries(answers)) {
+                if (q.includes(key) || key.includes(q)) return value;
+            }
+            return null;
+        }
+
+        function showResponse(question, data) {
+            const responseDiv = document.getElementById('chatResponse');
+            document.getElementById('responseQuestion').textContent = question;
+            let html = data.answer;
+            html = html.replace(/<span class="highlight-text">/g, '<span style="color:#2c5f4a;font-weight:600;">');
+            html = html.replace(/<\/span>/g, '</span>');
+            document.getElementById('responseAnswer').innerHTML = html;
+            document.getElementById('responseTags').innerHTML = data.tags.map(t => `<span class="tag">#${t}</span>`).join('');
+            responseDiv.classList.add('visible');
+            responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function handleQuestion(question) {
+            if (!question || question.trim() === '') return;
+            const data = getAnswer(question);
+            if (data) {
+                showResponse(question, data);
+            } else {
+                showResponse(question, {
+                    answer: `
+                        <p>Tack för din fråga! 🙏</p>
+                        <p>Just nu bygger jag ut svaret. Här är något du kan göra:</p>
+                        <ul>
+                            <li><span class="highlight-text">Prata inte om skolan</span> — prata om allt annat.</li>
+                            <li>Ställ en öppen fråga: <em>"Vad är det jobbigaste just nu?"</em></li>
+                        </ul>
+                    `,
+                    tags: ['väntar på svar']
+                });
+            }
+        }
+
+        function resetChat() {
+            document.getElementById('chatResponse').classList.remove('visible');
+            document.getElementById('chatInput').value = '';
+        }
+
+        // =============================================
+        // REAKTIONSGUIDEN
+        // =============================================
+
+        let currentCategory = 'all';
+
+        function renderReactions(category) {
+            const list = document.getElementById('reactionList');
+            const filtered = category === 'all' ? reactionData : reactionData.filter(r => r.category === category);
+
+            list.innerHTML = '';
+            filtered.forEach(r => {
+                const div = document.createElement('div');
+                div.className = 'reaction-item';
+                div.dataset.id = r.id;
+                div.innerHTML = `<div class="item-label">${r.label}</div><div class="item-desc">${r.desc}</div>`;
+                div.addEventListener('click', function() {
+                    showReactionResult(r.id);
+                });
+                list.appendChild(div);
+            });
+
+            if (filtered.length === 0) {
+                list.innerHTML =
+                    `<p style="color:#5a6b62; font-size:14px; padding:10px;">Inga scenarier i denna kategori ännu.</p>`;
+            }
+        }
+
+        function showReactionResult(id) {
+            const data = reactionData.find(r => r.id === id);
+            if (!data) return;
+
+            const result = document.getElementById('reactionResult');
+            document.getElementById('resultScenario').textContent = data.label;
+            let html = data.answer;
+            html = html.replace(/<span class="highlight-text">/g, '<span style="color:#2c5f4a;font-weight:600;">');
+            html = html.replace(/<\/span>/g, '</span>');
+            document.getElementById('resultAnswer').innerHTML = html;
+            document.getElementById('resultWhy').innerHTML = `<strong>🧠 Varför det fungerar:</strong> ${data.why}`;
+
+            result.classList.add('visible');
+            result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            document.querySelectorAll('.reaction-item').forEach(el => {
+                el.style.borderColor = parseInt(el.dataset.id) === id ? '#2c5f4a' : '#dde3de';
+                el.style.background = parseInt(el.dataset.id) === id ? '#f0f5f2' : '#f5f2ee';
+            });
+        }
+
+        // =============================================
+        // MODAL
+        // =============================================
+
+        function openReactionModal() {
+            document.getElementById('reactionModal').classList.add('active');
+            renderReactions('all');
+            document.getElementById('reactionResult').classList.remove('visible');
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.cat-btn[data-category="all"]').classList.add('active');
+            currentCategory = 'all';
+        }
+
+        function closeReactionModal() {
+            document.getElementById('reactionModal').classList.remove('active');
+        }
+
+        // =============================================
+        // EVENTS
+        // =============================================
+
+        document.getElementById('openReactionBtn').addEventListener('click', openReactionModal);
+        document.getElementById('closeReactionBtn').addEventListener('click', closeReactionModal);
+        document.getElementById('reactionModal').addEventListener('click', function(e) {
+            if (e.target === this) closeReactionModal();
+        });
+
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.category;
+                renderReactions(currentCategory);
+                document.getElementById('reactionResult').classList.remove('visible');
+            });
+        });
+
+        document.getElementById('sendBtn').addEventListener('click', function() {
+            handleQuestion(document.getElementById('chatInput').value.trim());
+        });
+
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('sendBtn').click();
+            }
+        });
+
+        document.querySelectorAll('.example').forEach(el => {
+            el.addEventListener('click', function() {
+                const question = this.dataset.question;
+                document.getElementById('chatInput').value = question;
+                handleQuestion(question);
+            });
+        });
+
+        document.querySelector('.logo').addEventListener('click', resetChat);
+    </script>
+
+</body>
+</html>
