@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <style>
-        /* ===== CSS ===== (Oförändrad) */
+        /* ===== CSS ===== */
         * {
             margin: 0;
             padding: 0;
@@ -23,6 +23,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            -webkit-font-smoothing: antialiased;
         }
         .container {
             max-width: 760px;
@@ -215,14 +216,8 @@
             border-radius: 30px;
         }
         @keyframes fade {
-            0% {
-                opacity: 0;
-                transform: translateY(6px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(6px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         .action-row {
             display: flex;
@@ -281,22 +276,12 @@
             animation: slideUp 0.3s ease;
         }
         @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
         @keyframes slideUp {
-            0% {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
         .modal-header {
             display: flex;
@@ -321,6 +306,17 @@
         }
         .modal-close:hover {
             color: #1e2a24;
+        }
+        .modal-disclaimer {
+            font-size: 13px;
+            color: #5a6b62;
+            background: #f5f2ee;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        .modal-disclaimer strong {
+            color: #b3452c;
         }
         .reaction-categories {
             display: flex;
@@ -347,6 +343,15 @@
         .reaction-categories .cat-btn:hover:not(.active) {
             border-color: #2c5f4a;
         }
+        .reaction-categories .cat-btn[data-category="oroande"] {
+            border-color: #b3452c;
+            color: #b3452c;
+        }
+        .reaction-categories .cat-btn[data-category="oroande"].active {
+            background: #b3452c;
+            border-color: #b3452c;
+            color: white;
+        }
         .reaction-list {
             display: flex;
             flex-direction: column;
@@ -371,6 +376,13 @@
         .reaction-list .reaction-item:hover {
             border-color: #2c5f4a;
             background: #f0f5f2;
+        }
+        .reaction-list .reaction-item.item-warning {
+            border-color: #e3c4ba;
+        }
+        .reaction-list .reaction-item.item-warning:hover {
+            border-color: #b3452c;
+            background: #fbf0ed;
         }
         .reaction-list .reaction-item .item-label {
             font-weight: 500;
@@ -412,6 +424,9 @@
             font-size: 14px;
             border-left: 3px solid #d49a4a;
         }
+        .reaction-result .result-answer .box-urgent {
+            border-left: 3px solid #b3452c;
+        }
         .reaction-result .result-answer .highlight-text {
             color: #2c5f4a;
             font-weight: 600;
@@ -425,6 +440,101 @@
         }
         .reaction-result .result-why strong {
             color: #1e2a24;
+        }
+        .guide-progress {
+            margin-bottom: 20px;
+        }
+        .guide-progress-text {
+            font-size: 13px;
+            color: #5a6b62;
+            margin-bottom: 6px;
+        }
+        .guide-progress-track {
+            height: 5px;
+            background: #eef1ee;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .guide-progress-fill {
+            height: 100%;
+            background: #2c5f4a;
+            transition: width 0.3s ease;
+        }
+        .guide-step-title {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            font-size: 21px;
+            color: #1e2a24;
+            margin-bottom: 14px;
+        }
+        .guide-step-body {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .guide-step-body ul {
+            margin: 10px 0 14px 18px;
+        }
+        .guide-step-body li {
+            margin-bottom: 8px;
+        }
+        .age-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 14px 0 4px;
+        }
+        .age-btn {
+            background: #f5f2ee;
+            border: 1px solid #dde3de;
+            border-radius: 40px;
+            padding: 7px 18px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: 0.2s;
+            color: #1e2a24;
+        }
+        .age-btn:hover {
+            border-color: #2c5f4a;
+        }
+        .age-btn.active {
+            background: #2c5f4a;
+            color: white;
+            border-color: #2c5f4a;
+        }
+        .guide-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #dde3de;
+        }
+        .guide-nav button {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 40px;
+            padding: 10px 22px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .guide-nav .prev-btn {
+            background: none;
+            border: 1px solid #dde3de;
+            color: #5a6b62;
+        }
+        .guide-nav .prev-btn:hover {
+            border-color: #2c5f4a;
+            color: #2c5f4a;
+        }
+        .guide-nav .next-btn {
+            background: #2c5f4a;
+            border: none;
+            color: white;
+        }
+        .guide-nav .next-btn:hover {
+            background: #3d7a62;
         }
         .footer {
             margin-top: 32px;
@@ -453,32 +563,14 @@
             color: #2c5f4a;
         }
         @media (max-width: 600px) {
-            .container {
-                padding: 20px 16px;
-            }
-            h1 {
-                font-size: 26px;
-            }
-            .chat-input-row {
-                flex-direction: column;
-            }
-            .chat-input-row button {
-                width: 100%;
-            }
-            .top {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .footer {
-                flex-direction: column;
-                text-align: center;
-            }
-            .modal-box {
-                padding: 24px 18px;
-            }
-            .action-btn {
-                min-width: 100%;
-            }
+            .container { padding: 20px 16px; }
+            h1 { font-size: 26px; }
+            .chat-input-row { flex-direction: column; }
+            .chat-input-row button { width: 100%; }
+            .top { flex-direction: column; align-items: flex-start; }
+            .footer { flex-direction: column; text-align: center; }
+            .modal-box { padding: 24px 18px; }
+            .action-btn { min-width: 100%; }
         }
     </style>
 </head>
@@ -521,9 +613,10 @@
                 <span class="example" data-question="Min son bestämmer allt hemma">Min son bestämmer allt</span>
                 <span class="example" data-question="Vad har jag rätt till som förälder?">Vad har jag rätt till?</span>
                 <span class="example" data-question="Hur kan jag använda skolan som hjälp?">Använda skolan som hjälp</span>
+                <span class="example" data-question="Hur ber jag skolan om mer stöd vid hemmasittande?">Be om mer stöd vid hemmasittande</span>
                 <span class="example" data-question="Jag orkar inte mer">Jag orkar inte mer</span>
-                <span class="example" data-question="Berätta om biobiljett-liknelsen">🎬 Biobiljett-liknelsen</span>
-                <span class="example" data-question="Vad är en åtgärdsprogram?">Vad är ett åtgärdsprogram?</span>
+                <span class="example" data-question="Hitta rätt liknelse för mitt barn">💡 Hitta rätt liknelse</span>
+                <span class="example" data-question="Vad är ett åtgärdsprogram?">Vad är ett åtgärdsprogram?</span>
             </div>
             <div class="chat-input-row">
                 <input type="text" id="chatInput" placeholder="Skriv din fråga här..." />
@@ -537,7 +630,7 @@
         </div>
 
         <div class="footer">
-            <div class="by">av <strong>MD</strong> · skolkurator i 7 år</div>
+            <div class="by">av <strong>Mustafa Douglah</strong> · skolkurator i 7 år</div>
             <div class="links">
                 <a href="#">Om kursen</a>
                 <a href="#">FAQ</a>
@@ -545,6 +638,31 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- ===== GUIDAT LÄGE MODAL ===== -->
+    <div class="modal-overlay" id="guideModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>🧭 Guidat läge</h2>
+                <button class="modal-close" id="closeGuideBtn">✕</button>
+            </div>
+
+            <div class="guide-progress">
+                <div class="guide-progress-text" id="guideProgressText">Steg 1 av 6</div>
+                <div class="guide-progress-track">
+                    <div class="guide-progress-fill" id="guideProgressFill" style="width: 16.6%;"></div>
+                </div>
+            </div>
+
+            <div class="guide-step-title" id="guideStepTitle"></div>
+            <div class="guide-step-body" id="guideStepBody"></div>
+
+            <div class="guide-nav">
+                <button class="prev-btn" id="guidePrevBtn">← Föregående</button>
+                <button class="next-btn" id="guideNextBtn">Nästa →</button>
+            </div>
+        </div>
     </div>
 
     <!-- ===== REAKTIONSGUIDEN MODAL ===== -->
@@ -555,9 +673,13 @@
                 <button class="modal-close" id="closeReactionBtn">✕</button>
             </div>
 
-            <p style="font-size:14px; color:#5a6b62; margin-bottom:16px;">
-                Välj vad ditt barn säger eller gör — och få ett exakt svar.
+            <p style="font-size:14px; color:#5a6b62; margin-bottom:12px;">
+                Välj vad ditt barn säger eller gör — och få ett förslag på svar.
             </p>
+
+            <div class="modal-disclaimer">
+                Dessa svar utgår från vanligt gränstestande och trots. Om ditt barn visar tecken på svår ångest, mobbning eller uttrycker något oroande — välj kategorin <strong>🆘 Oroande</strong>.
+            </div>
 
             <div class="reaction-categories" id="reactionCategories">
                 <button class="cat-btn active" data-category="all">Alla</button>
@@ -567,6 +689,7 @@
                 <button class="cat-btn" data-category="tyst">🤐 Tyst</button>
                 <button class="cat-btn" data-category="hotar">⚠️ Hotar</button>
                 <button class="cat-btn" data-category="skola">🏫 Skolan</button>
+                <button class="cat-btn" data-category="oroande">🆘 Oroande</button>
             </div>
 
             <div class="reaction-list" id="reactionList">
@@ -583,7 +706,7 @@
 
     <script>
         // =============================================
-        // DATA — Reaktionsguiden (UTÖKAD)
+        // DATA — Reaktionsguiden
         // =============================================
         const reactionData = [{
             id: 1,
@@ -612,7 +735,7 @@
             desc: 'Jämför med andra, känner sig orättvist behandlad',
             answer: `
                 <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag är inte alla andra. Jag är din förälder och jag älskar dig. Och för att jag älskar dig så måste jag ibland bestämma saker som du inte gillar."</em></div>
-                <p><span class="highlight-text">Varför det fungerar:</span> Du duckar för jämförelsen och fokuserar på eran relation.</p>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du undviker jämförelsen och fokuserar på er relation.</p>
             `,
             why: 'Genom att inte gå in i diskussionen om vad "alla andra" får, tar du bort kraften i argumentet.'
         }, {
@@ -634,7 +757,7 @@
                 <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag förstår att du tycker det är orättvist. Jag förstår att du är arg. Men det här har jag bestämt — och jag tänker inte ändra mig."</em></div>
                 <p><span class="highlight-text">Varför det fungerar:</span> Du bekräftar känslan men håller fast vid beslutet.</p>
             `,
-            why: 'Barnet vill bli hörd. Du lyssnar men låter dig inte styras.'
+            why: 'Barnet vill bli hört. Du lyssnar men låter dig inte styras.'
         }, {
             id: 6,
             category: 'ledsen',
@@ -642,7 +765,7 @@
             desc: 'Ledsen, ensam, missförstådd',
             answer: `
                 <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag hör dig. Det måste kännas väldigt ensamt. Jag vill förstå dig — kan du berätta mer?"</em></div>
-                <p><span class="highlight-text">Varför det fungerar:</span> Du bekräftar känslan utan att försöka lösa problemet.</p>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du bekräftar känslan utan att försöka lösa problemet direkt.</p>
             `,
             why: 'Barn i kris behöver ofta bli sedda och hörda innan de kan ta emot råd.'
         }, {
@@ -654,7 +777,7 @@
                 <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Det gör ont att höra dig säga så. För mig spelar det roll. Och jag kommer inte att ge upp på dig."</em></div>
                 <p><span class="highlight-text">Varför det fungerar:</span> Du bekräftar att du hör allvaret. Du visar att du inte ger upp.</p>
             `,
-            why: 'Uppgivenhet är ofta en försvarsmekanism. Du bryter mönstret och visar att det finns hopp.'
+            why: 'Uppgivenhet är ofta en försvarsmekanism. Om detta är återkommande eller intensivt — se kategorin 🆘 Oroande.'
         }, {
             id: 8,
             category: 'tyst',
@@ -668,7 +791,7 @@
         }, {
             id: 9,
             category: 'tyst',
-            label: 'Barnet stänger in sig på rummet',
+            label: 'Barnet stänger in sig i sitt rum',
             desc: 'Isolerar sig, drar sig undan',
             answer: `
                 <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Jag förstår att du behöver vara ensam just nu. Jag kommer tillbaka om 15 minuter och kollar hur du mår. Jag älskar dig."</em></div>
@@ -682,9 +805,9 @@
             desc: 'Hotar med att försvinna, lämna, rymma',
             answer: `
                 <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Det gör mig orolig att höra dig säga så. Jag vill verkligen att du ska stanna hos mig. Vad är det som känns så hopplöst?"</em></div>
-                <p><span class="highlight-text">Varför det fungerar:</span> Du tar hotet på allvar utan att gå i en maktkamp.</p>
+                <p><span class="highlight-text">Varför det fungerar:</span> Du tar hotet på allvar utan att gå in i en maktkamp.</p>
             `,
-            why: 'Hot om rymning är ofta ett uttryck för hopplöshet.'
+            why: 'Hot om rymning är ofta ett uttryck för hopplöshet. Blir det återkommande — se kategorin 🆘 Oroande.'
         }, {
             id: 11,
             category: 'hotar',
@@ -694,7 +817,7 @@
                 <div class="box"><strong>🔥 Så här svarar du:</strong><br><em>"Julklappar handlar om kärlek, inte om belöning. Jag älskar dig oavsett — och jag ändrar inte mitt beslut."</em></div>
                 <p><span class="highlight-text">Varför det fungerar:</span> Du avväpnar manipulationen genom att skilja på kärlek och belöning.</p>
             `,
-            why: 'Manipulation försvinner när den inte får någon effekt.'
+            why: 'Manipulation tappar kraft när den inte får någon effekt.'
         }, {
             id: 12,
             category: 'skola',
@@ -715,10 +838,27 @@
                 <p><span class="highlight-text">Varför det fungerar:</span> Du skiljer på person och situation. Det är inte hen som är problemet — det är stödet som saknas.</p>
             `,
             why: 'Barn med låg självkänsla behöver höra att det inte är deras fel.'
+        }, {
+            id: 14,
+            category: 'oroande',
+            label: 'Barnet uttrycker att inte orka leva, vill skada sig själv, eller "det spelar ingen roll om jag försvinner"',
+            desc: 'Uttryck bortom vanlig uppgivenhet — ta alltid på allvar',
+            answer: `
+                <div class="box box-urgent"><strong>🆘 Gör det här nu:</strong><br>
+                Stanna hos barnet. Fråga rakt: <em>"Tänker du på att skada dig själv?"</em> — det gör inte saken värre, tvärtom.<br><br>
+                Kontakta professionell hjälp direkt:<br>
+                <strong>Vid akut fara:</strong> ring 112<br>
+                <strong>För rådgivning, ej akut:</strong> 1177 (dygnet runt)<br>
+                <strong>Självmordslinjen (Mind):</strong> 90101<br>
+                <strong>BRIS</strong> (barnet kan själv ringa): 116 111
+                </div>
+                <p><span class="highlight-text">Detta är inte en situation att hantera med ett bra samtal ensam.</span> Sök hjälp samtidigt som du finns kvar hos ditt barn.</p>
+            `,
+            why: 'Uttryck kring att inte vilja leva ska alltid tas på allvar och föras vidare till vård — oavsett hur säker eller osäker känslan verkar.'
         }];
 
         // =============================================
-        // CHATT-DATA (UTÖKAD)
+        // CHATT-DATA
         // =============================================
         const answers = {
 
@@ -740,7 +880,7 @@
                     <p><span class="highlight-text">Tystnad är ofta ett skydd.</span></p>
                     <ul>
                         <li><strong>Sluta fråga.</strong> Säg: <em>"Jag finns här när du vill prata."</em></li>
-                        <li><strong>Använd "bredvid-samtal".</strong> Promenera, laga mat.</li>
+                        <li><strong>Använd "bredvid-samtal".</strong> Promenera, laga mat tillsammans.</li>
                     </ul>
                     <p>Ge henne <span class="highlight-text">utrymme</span> — men visa att du finns kvar.</p>
                 `,
@@ -802,26 +942,48 @@
                     <p><span class="highlight-text">Du är inte ensam.</span></p>
                     <ul>
                         <li><strong>Ta en paus.</strong> Andas.</li>
-                        <li><strong>Prata med någon</strong> — vän, kurator.</li>
-                        <li><strong>Be om hjälp</strong> — från skolan, BUP.</li>
+                        <li><strong>Prata med någon</strong> — vän, kurator, vårdcentral.</li>
+                        <li><strong>Be om hjälp</strong> — från skolan, BUP, eller 1177 för egen del.</li>
                     </ul>
                 `,
                 tags: ['ork', 'stöd']
             },
 
-            // ===== NYA FRÅGOR =====
-            'berätta om biobiljett-liknelsen': {
+            'hitta rätt liknelse för mitt barn': {
                 answer: `
+                    <p><span class="highlight-text">Kärnbudskapet i alla liknelser:</span> skolan är redan betald och redan din — frågan är bara om du tar för dig av den.</p>
+
                     <div class="box">
-                        <strong>🎬 Biobiljett-liknelsen</strong><br>
-                        <em>"Tänk dig att du har köpt en biobiljett för 100 kronor. Du är inte tvungen att se filmen — men biljetten är redan betald. Om du väljer att inte gå in, försvinner inte pengarna, du får dem inte tillbaka. Skolan fungerar likadant: dina föräldrar har redan betalat skatt som täcker den. Att inte gå till skolan är som att ha biljetten i fickan och stå utanför biosalongen — pengarna är redan spenderade, oavsett om du går in eller inte. Frågan är bara om du väljer att få ut något av det du redan har rätt till."</em>
+                        <strong>🎬 Biobiljetten</strong> <em style="color:#5a6b62;">(passar de flesta åldrar)</em><br>
+                        "Tänk dig att du har köpt en biobiljett för 100 kronor. Ingen tvingar dig att gå in och se filmen — men pengarna är redan borta, oavsett om du sätter dig i salongen eller inte. Skolan fungerar på samma sätt: dina föräldrar har redan betalat för den genom skatten, varje dag, oavsett om du är där eller inte. Att stanna hemma är som att stå utanför biosalongen med biljetten i fickan — du får inte pengarna tillbaka, du bara missar filmen."
                     </div>
-                    <p><span class="highlight-text">Varför den fungerar:</span> Den flyttar ansvaret till barnet som ett val, inte ett kommando. Den avdramatiserar konflikten och gör ett abstrakt resonemang begripligt.</p>
+
+                    <div class="box">
+                        <strong>🍽️ Buffén</strong> <em style="color:#5a6b62;">(passar yngre barn)</em><br>
+                        "Tänk dig att ni är på en buffé där maten kostar samma oavsett hur mycket du äter. Om du bara sitter vid bordet och inte tar någon mat blir du bara hungrig — trots att all mat fanns där hela tiden, redan betald."
+                    </div>
+
+                    <div class="box">
+                        <strong>🏋️ Gymkortet</strong> <em style="color:#5a6b62;">(passar tonåringar)</em><br>
+                        "Tänk dig att du har ett årskort på gymmet, redan betalt för hela året. Går du inte dit på en månad förlorar du inga pengar direkt — men du missar chansen att bli starkare, som redan väntar på dig i kortet du har i plånboken."
+                    </div>
+
+                    <div class="box">
+                        <strong>☀️ Sommarsemestern</strong> <em style="color:#5a6b62;">(bra när det handlar mer om känsla än pengar)</em><br>
+                        "Tänk dig att familjen bokat och betalat en veckas resa med pool och utflykter. Väljer du att ligga på rummet hela veckan istället för att gå ut, får ingen pengarna tillbaka. Du är bara den enda som missar semestern — fast den redan är din."
+                    </div>
+
+                    <div class="box">
+                        <strong>📱 Mobildatan</strong> <em style="color:#5a6b62;">(passar tonåringar)</em><br>
+                        "Tänk dig att du har ett abonnemang med mängder av surf inkluderat varje månad, redan betalt. Ligger mobilen i lådan hela månaden och du inte använder datan, får du inte pengarna tillbaka nästa månad. Datan försvinner bara, oanvänd."
+                    </div>
+
+                    <p><span class="highlight-text">Varför de fungerar:</span> De flyttar ansvaret till barnet som ett val, inte ett kommando, och gör ett abstrakt resonemang (skatt, rättigheter) begripligt och vardagsnära. Välj den som passar barnets ålder och intressen bäst.</p>
                 `,
-                tags: ['biobiljetten', 'samtal', 'perspektiv']
+                tags: ['liknelser', 'samtal', 'perspektiv']
             },
 
-            'vad är en åtgärdsprogram': {
+            'vad är ett åtgärdsprogram': {
                 answer: `
                     <p><span class="highlight-text">Ett åtgärdsprogram är ett skriftligt dokument som beskriver vilket stöd ditt barn ska få i skolan.</span></p>
                     <ul>
@@ -865,8 +1027,187 @@
                     <p><span class="highlight-text">Backa inte.</span> Stå fast — med värme.</p>
                 `,
                 tags: ['ilska', 'gränser', 'kommunikation']
+            },
+
+            'hur ber jag skolan om mer stöd vid hemmasittande': {
+                answer: `
+                    <p><span class="highlight-text">Vid längre tids frånvaro kan ni be om mer än ett vanligt möte.</span></p>
+                    <div class="box">
+                        <strong>✉️ Mejlmall:</strong><br>
+                        <em>"Hej [namn på kurator/rektor],<br><br>
+                        [Barnets namn] har inte kommit till skolan på [tidsperiod], och vi känner att vi behöver mer stöd än vad som ryms i ett vanligt möte. Vi undrar om skolan kan erbjuda:</em>
+                        <ul style="margin:8px 0 8px 20px;">
+                            <li><em>ett hembesök från elevhälsan, för att bygga relation innan vi pressar på återgång</em></li>
+                            <li><em>en stegvis plan för återgång, snarare än att förvänta full närvaro direkt</em></li>
+                            <li><em>en tydlig kontaktperson vi kan nå löpande under processen</em></li>
+                        </ul>
+                        <em>Vi vet att det här kan ta tid, och vi vill gärna samarbeta tätt med er under tiden."</em>
+                    </div>
+                    <p><span class="highlight-text">Bra att veta:</span> Det här kan ta tid — se exemplet under Guidat läge, sista steget, för hur en sådan process kan se ut i praktiken.</p>
+                `,
+                tags: ['hemmasittare', 'skolan', 'samverkan']
+            },
+
+            'jag är orolig för något allvarligt': {
+                answer: `
+                    <div class="box box-urgent"><strong>🆘 Gör det här nu:</strong><br>
+                    Stanna hos barnet. Fråga rakt: <em>"Tänker du på att skada dig själv?"</em> — det gör inte saken värre, tvärtom.<br><br>
+                    Kontakta professionell hjälp direkt:<br>
+                    <strong>Vid akut fara:</strong> ring 112<br>
+                    <strong>För rådgivning, ej akut:</strong> 1177 (dygnet runt)<br>
+                    <strong>Självmordslinjen (Mind):</strong> 90101<br>
+                    <strong>BRIS</strong> (barnet kan själv ringa): 116 111
+                    </div>
+                    <p><span class="highlight-text">Detta är inte en situation att hantera ensam.</span> Sök hjälp samtidigt som du finns kvar hos ditt barn.</p>
+                `,
+                tags: ['oroande', 'akut', 'hjälp']
             }
         };
+
+        // =============================================
+        // GUIDAT LÄGE — STEGVIS RESA
+        // =============================================
+
+        const ageLiknelser = {
+            young: `<div class="box"><strong>🍽️ Buffén</strong><br>"Tänk dig att ni är på en buffé där maten kostar samma oavsett hur mycket du äter. Om du bara sitter vid bordet och inte tar någon mat blir du bara hungrig — trots att all mat fanns där hela tiden, redan betald."</div>`,
+            tween: `<div class="box"><strong>🎬 Biobiljetten</strong><br>"Tänk dig att du har köpt en biobiljett för 100 kronor. Ingen tvingar dig att gå in och se filmen — men pengarna är redan borta, oavsett om du sätter dig i salongen eller inte. Skolan fungerar på samma sätt: dina föräldrar har redan betalat för den genom skatten, varje dag, oavsett om du är där eller inte. Att stanna hemma är som att stå utanför biosalongen med biljetten i fickan — du får inte pengarna tillbaka, du bara missar filmen."</div>`,
+            teen: `<div class="box"><strong>🏋️ Gymkortet</strong><br>"Tänk dig att du har ett årskort på gymmet, redan betalt för hela året. Går du inte dit på en månad förlorar du inga pengar direkt — men du missar chansen att bli starkare, som redan väntar på dig i kortet du har i plånboken."</div><div class="box"><strong>📱 Mobildatan</strong><br>"Tänk dig att du har ett abonnemang med mängder av surf inkluderat varje månad, redan betalt. Ligger mobilen i lådan hela månaden och du inte använder datan, får du inte pengarna tillbaka nästa månad. Datan försvinner bara, oanvänd."</div>`
+        };
+
+        function selectAge(group, btnEl) {
+            document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
+            btnEl.classList.add('active');
+            document.getElementById('likneResult').innerHTML = ageLiknelser[group] || '';
+        }
+
+        const guideSteps = [
+            {
+                title: 'Det här är inte ditt fel',
+                body: `
+                    <p>Många föräldrar känner skuld när deras barn inte vill gå till skolan. Men i de allra flesta fall handlar det inte om dåligt föräldraskap — det handlar om ett <strong>kunskapsglapp</strong>: du vet ännu inte vilka verktyg som fungerar för just ditt barn.</p>
+                    <p><span class="highlight-text">Den här guiden hjälper dig hitta dem, steg för steg.</span></p>
+                `
+            },
+            {
+                title: 'Förstå varför, innan du agerar',
+                body: `
+                    <p>Olika orsaker till skolvägran kräver olika sorters stöd. Innan du pratar med ditt barn, fundera på vilken av dessa som känns mest sann just nu:</p>
+                    <ul>
+                        <li><strong>Ångest</strong> — barnet är rädd eller överväldigad, inte trotsigt</li>
+                        <li><strong>Konflikt</strong> — något (en lärare, en kompis) känns fientligt</li>
+                        <li><strong>Prestation</strong> — barnet känner sig otillräckligt akademiskt</li>
+                        <li><strong>Gränstestning</strong> — mer allmänt trots, testar var gränsen går</li>
+                    </ul>
+                    <p>Du behöver inte ha ett säkert svar — bara en riktning. Resten av guiden fungerar oavsett, men ju bättre du förstår orsaken, desto bättre kan du anpassa samtalet.</p>
+                `
+            },
+            {
+                title: 'Kärnbudskapet: skolan är en rättighet, inte en skyldighet',
+                body: `
+                    <p>Många barn upplever skolan som ett tvång, vilket väcker motstånd. Vänd på perspektivet: skolan är inte något barnet måste göra — det är något barnet redan har fått, och kan välja att ta vara på.</p>
+                    <p><strong>Välj ditt barns ålder</strong> så får du den liknelse som brukar landa bäst:</p>
+                    <div class="age-buttons">
+                        <button class="age-btn" data-age="young">6–9 år</button>
+                        <button class="age-btn" data-age="tween">10–13 år</button>
+                        <button class="age-btn" data-age="teen">14–16 år</button>
+                    </div>
+                    <div id="likneResult"></div>
+                `
+            },
+            {
+                title: 'Så för du samtalet',
+                body: `
+                    <ul>
+                        <li>Fråga nyfiket: <em>"Vad är det jobbigaste med skolan just nu?"</em> — i stället för <em>"Varför vill du inte gå?"</em></li>
+                        <li>Välj rätt tillfälle — middagsbordet eller bilresan, inte morgonstressen</li>
+                        <li>Lyssna längre än det känns bekvämt — låt tystnaden vara</li>
+                        <li>Undvik att förhandla eller muta ("om du går får du...") — det gör skolan till en transaktion igen</li>
+                    </ul>
+                    <div class="box">
+                        <strong>Exempel att öva på:</strong><br><br>
+                        <strong>Du:</strong> <em>"Jag har tänkt på en sak. Skolan är lite som en biobiljett — den är redan betald, oavsett om du går in eller inte. Frågan är vad du missar genom att stå utanför."</em><br><br>
+                        <strong>Barnet:</strong> <em>"Men jag mår dåligt av att vara där."</em><br><br>
+                        <strong>Du:</strong> <em>"Det hör jag, och det är viktigt — vi ska hitta sätt att göra det lättare. Men skolan är inte emot dig. Den är redan din, och väntar på att du ska ta för dig av den."</em>
+                    </div>
+                `
+            },
+            {
+                title: 'Öva ikväll',
+                body: `
+                    <p>Prova en av dessa vid middagsbordet ikväll:</p>
+                    <ul>
+                        <li>"Vad var det bästa/jobbigaste som hände idag?"</li>
+                        <li>"Finns det något i skolan som känns lättare nu än förra veckan?"</li>
+                        <li>"Om du fick ändra en sak med hur skoldagen ser ut, vad hade det varit?"</li>
+                        <li>"Vad skulle du säga att du får ut av att gå dit, även på en dålig dag?"</li>
+                    </ul>
+                `
+            },
+            {
+                title: 'Om samtalet inte räcker',
+                body: `
+                    <p>Om ni har pratat och ditt barn fortfarande inte kommer till skolan, är nästa steg att ta kontakt med skolan — de är skyldiga att utreda och stötta, oavsett om ni redan har en diagnos eller inte.</p>
+                    <ul>
+                        <li>Använd <strong>Reaktionsguiden</strong> för konkreta situationer som uppstår hemma</li>
+                        <li>Se chattens frågor om <strong>"vad har jag rätt till?"</strong> och <strong>"be om mer stöd vid hemmasittande"</strong></li>
+                    </ul>
+
+                    <div class="box">
+                        <strong>📖 Ett verkligt exempel (anonymiserat):</strong><br><br>
+                        "Jag jobbade med en pojke i årskurs 3 som nyligen flyttat till kommunen. Andra dagen på den nya skolan vägrade han gå dit, utan att förklara varför. Jag ringde hans mamma samma dag och besökte hemmet direkt — men han låste in sig på badrummet och svarade inte. Jag stod utanför dörren i ungefär en timme och pratade, fick inget svar, men sa att jag inte skulle ge upp. Jag kom igen nästa dag. Och nästa. Efter några dagar tog jag med en kollega, och vi föreslog att träffas någon annanstans — en lekpark, en affär, ingenstans kopplat till skolan. Tillsammans med pappan planerade vi att 'råka' stöta på familjen i en affär i stan. När vi kom fram kände pojken igen min röst, och vi hamnade i ett skämtsamt samtal om ett dataspel han gillade. Det blev ingången — och samma dag föreslog jag att få komma hem och dricka kaffe hos dem. Vi satt och pratade i över en timme. Nästa steg var att han följde med mig till skolan för att se hur jag jobbar — inte för att gå i klassen. Sedan följde en gradvis upptrappning: efter lunch, med en kompis jag ordnat i förväg, till att han var kvar hela dagen. Från första kontakten till att han var tillbaka i klassrummet tog det nästan två veckor."<br><br>
+                        <span class="highlight-text">Poängen:</span> Det tog nästan två veckor, krävde flera vuxna, och byggde på att ta vara på ett litet ögonblick av öppenhet direkt — en genomtänkt strategi, inte tur. Om er situation känns långsam eller krokig är det normalt, inte ett tecken på att något görs fel.
+                    </div>
+
+                    <div class="box box-urgent">
+                        <strong>🆘 Viktigt:</strong> Om ditt barn uttrycker något som känns bortom vanlig uppgivenhet — tankar om att inte orka leva eller skada sig själv — sök professionell hjälp direkt. Se kategorin <strong>🆘 Oroande</strong> i Reaktionsguiden för nummer att ringa.
+                    </div>
+                `
+            }
+        ];
+
+        let currentGuideStep = 1;
+
+        function renderGuideStep() {
+            const step = guideSteps[currentGuideStep - 1];
+            document.getElementById('guideStepTitle').textContent = step.title;
+            document.getElementById('guideStepBody').innerHTML = step.body;
+            document.getElementById('guideProgressText').textContent = `Steg ${currentGuideStep} av ${guideSteps.length}`;
+            document.getElementById('guideProgressFill').style.width = (currentGuideStep / guideSteps.length * 100) + '%';
+            document.getElementById('guidePrevBtn').style.visibility = currentGuideStep === 1 ? 'hidden' : 'visible';
+            document.getElementById('guideNextBtn').textContent = currentGuideStep === guideSteps.length ? 'Klart ✓' : 'Nästa →';
+
+            document.querySelectorAll('.age-btn').forEach(btn => {
+                btn.addEventListener('click', function() { selectAge(this.dataset.age, this); });
+            });
+
+            document.querySelector('#guideModal .modal-box').scrollTop = 0;
+        }
+
+        function nextGuideStep() {
+            if (currentGuideStep < guideSteps.length) {
+                currentGuideStep++;
+                renderGuideStep();
+            } else {
+                closeGuideModal();
+            }
+        }
+
+        function prevGuideStep() {
+            if (currentGuideStep > 1) {
+                currentGuideStep--;
+                renderGuideStep();
+            }
+        }
+
+        function openGuideModal() {
+            document.getElementById('guideModal').classList.add('active');
+            currentGuideStep = 1;
+            renderGuideStep();
+        }
+
+        function closeGuideModal() {
+            document.getElementById('guideModal').classList.remove('active');
+        }
 
         // =============================================
         // CHATT-FUNKTIONER
@@ -884,10 +1225,7 @@
         function showResponse(question, data) {
             const responseDiv = document.getElementById('chatResponse');
             document.getElementById('responseQuestion').textContent = question;
-            let html = data.answer;
-            html = html.replace(/<span class="highlight-text">/g, '<span style="color:#2c5f4a;font-weight:600;">');
-            html = html.replace(/<\/span>/g, '</span>');
-            document.getElementById('responseAnswer').innerHTML = html;
+            document.getElementById('responseAnswer').innerHTML = data.answer;
             document.getElementById('responseTags').innerHTML = data.tags.map(t => `<span class="tag">#${t}</span>`).join('');
             responseDiv.classList.add('visible');
             responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -902,11 +1240,12 @@
                 showResponse(question, {
                     answer: `
                         <p>Tack för din fråga! 🙏</p>
-                        <p>Just nu bygger jag ut svaret. Här är något du kan göra:</p>
+                        <p>Just nu bygger jag ut svaret. Här är något du kan göra under tiden:</p>
                         <ul>
                             <li><span class="highlight-text">Prata inte om skolan</span> — prata om allt annat.</li>
                             <li>Ställ en öppen fråga: <em>"Vad är det jobbigaste just nu?"</em></li>
                         </ul>
+                        <p>Prova gärna en av frågorna ovanför fältet — de ger säkrast träff just nu.</p>
                     `,
                     tags: ['väntar på svar']
                 });
@@ -931,7 +1270,7 @@
             list.innerHTML = '';
             filtered.forEach(r => {
                 const div = document.createElement('div');
-                div.className = 'reaction-item';
+                div.className = 'reaction-item' + (r.category === 'oroande' ? ' item-warning' : '');
                 div.dataset.id = r.id;
                 div.innerHTML = `<div class="item-label">${r.label}</div><div class="item-desc">${r.desc}</div>`;
                 div.addEventListener('click', function() {
@@ -941,8 +1280,7 @@
             });
 
             if (filtered.length === 0) {
-                list.innerHTML =
-                    `<p style="color:#5a6b62; font-size:14px; padding:10px;">Inga scenarier i denna kategori ännu.</p>`;
+                list.innerHTML = `<p style="color:#5a6b62; font-size:14px; padding:10px;">Inga scenarier i denna kategori ännu.</p>`;
             }
         }
 
@@ -952,10 +1290,7 @@
 
             const result = document.getElementById('reactionResult');
             document.getElementById('resultScenario').textContent = data.label;
-            let html = data.answer;
-            html = html.replace(/<span class="highlight-text">/g, '<span style="color:#2c5f4a;font-weight:600;">');
-            html = html.replace(/<\/span>/g, '</span>');
-            document.getElementById('resultAnswer').innerHTML = html;
+            document.getElementById('resultAnswer').innerHTML = data.answer;
             document.getElementById('resultWhy').innerHTML = `<strong>🧠 Varför det fungerar:</strong> ${data.why}`;
 
             result.classList.add('visible');
@@ -968,7 +1303,7 @@
         }
 
         // =============================================
-        // MODAL
+        // MODAL — Reaktionsguiden
         // =============================================
 
         function openReactionModal() {
@@ -987,6 +1322,14 @@
         // =============================================
         // EVENTS
         // =============================================
+
+        document.getElementById('openGuideBtn').addEventListener('click', openGuideModal);
+        document.getElementById('closeGuideBtn').addEventListener('click', closeGuideModal);
+        document.getElementById('guideModal').addEventListener('click', function(e) {
+            if (e.target === this) closeGuideModal();
+        });
+        document.getElementById('guideNextBtn').addEventListener('click', nextGuideStep);
+        document.getElementById('guidePrevBtn').addEventListener('click', prevGuideStep);
 
         document.getElementById('openReactionBtn').addEventListener('click', openReactionModal);
         document.getElementById('closeReactionBtn').addEventListener('click', closeReactionModal);
