@@ -536,6 +536,26 @@
         .guide-nav .next-btn:hover {
             background: #3d7a62;
         }
+        .faq-q {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            font-size: 16px;
+            color: #2c5f4a;
+            margin: 18px 0 6px;
+        }
+        .faq-q:first-child {
+            margin-top: 0;
+        }
+        .faq-a {
+            font-size: 14.5px;
+            color: #1e2a24;
+        }
+        .faq-a ul {
+            margin: 8px 0 4px 20px;
+        }
+        .faq-a li {
+            margin-bottom: 6px;
+        }
         .footer {
             margin-top: 32px;
             padding-top: 18px;
@@ -632,12 +652,66 @@
         <div class="footer">
             <div class="by">av <strong>Mustafa Douglah</strong> · skolkurator i 7 år</div>
             <div class="links">
-                <a href="#">Om kursen</a>
-                <a href="#">FAQ</a>
-                <a href="#">Kontakt</a>
+                <a href="javascript:void(0)" id="openAboutLink">Om kursen</a>
+                <a href="javascript:void(0)" id="openFaqLink">FAQ</a>
+                <a href="mailto:foraldrapasset@gmail.com" id="contactLink">Kontakt</a>
+                <span id="contactCopiedNote" style="display:none; font-size:12px; color:#2c5f4a; font-weight:500;">Adress kopierad ✓</span>
             </div>
         </div>
 
+    </div>
+
+    <!-- ===== OM KURSEN MODAL ===== -->
+    <div class="modal-overlay" id="aboutModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>Om Föräldrapasset</h2>
+                <button class="modal-close" id="closeAboutBtn">✕</button>
+            </div>
+
+            <div class="faq-q">Vad är Föräldrapasset?</div>
+            <p class="faq-a">Föräldrapasset är ett interaktivt verktyg — inte en traditionell kurs — byggt utifrån sju års erfarenhet som skolkurator. Det ger konkret vägledning till föräldrar vars barn har svårt att gå till skolan.</p>
+
+            <div class="faq-q">Vem vänder vi oss till?</div>
+            <p class="faq-a">Föräldrar till barn i åldern 6–16 år som skolkar, vägrar gå till skolan, eller blivit hemmasittare — oavsett om ni precis märkt problemet eller kämpat länge.</p>
+
+            <div class="faq-q">Vad innehåller verktyget?</div>
+            <div class="faq-a">
+                <ul>
+                    <li><strong>Guidat läge</strong> — en sammanhängande genomgång i sex steg, från normalisering till konkreta samtalsverktyg</li>
+                    <li><strong>Reaktionsguiden</strong> — snabba svar på specifika situationer som uppstår hemma</li>
+                    <li><strong>Chattläget</strong> — fritextfrågor med färdiga mejlmallar och vägledning om era rättigheter gentemot skolan</li>
+                </ul>
+            </div>
+
+            <div class="faq-q">Vad är Föräldrapasset inte?</div>
+            <p class="faq-a">Det ersätter inte en professionell bedömning. Om ert barn visar tecken på svår ångest, depression eller uttrycker något oroande, sök alltid hjälp via BUP, vårdcentral eller de akutnummer som anges under kategorin 🆘 Oroande i Reaktionsguiden.</p>
+        </div>
+    </div>
+
+    <!-- ===== FAQ MODAL ===== -->
+    <div class="modal-overlay" id="faqModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>Fakta &amp; forskning om hemmasittare</h2>
+                <button class="modal-close" id="closeFaqBtn">✕</button>
+            </div>
+
+            <div class="faq-q">Hur vanligt är problematisk skolfrånvaro?</div>
+            <p class="faq-a">Sverige saknar ännu en gemensam nationell definition och statistik, men forskare brukar räkna en frånvaro på omkring 10–15 % av skoltiden — ungefär en dag i veckan — som problematisk. Ju längre den pågår, desto svårare blir återgången.</p>
+
+            <div class="faq-q">Är det förälderns fel?</div>
+            <p class="faq-a">Nej. Orsakerna brukar delas in i flera kategorier: skolrelaterade (t.ex. otydliga krav eller bristande stöd), individrelaterade (t.ex. ångest eller neuropsykiatriska svårigheter), familjerelaterade, samt sociala faktorer i omgivningen. Sällan handlar det om en enda orsak — och sällan om bristande föräldraförmåga.</p>
+
+            <div class="faq-q">Varför är det viktigt att agera snabbt?</div>
+            <p class="faq-a">Forskningen är tydlig: ju längre frånvaron pågår, desto svårare blir vägen tillbaka. Risken för fortsatt frånvaro, psykisk ohälsa och sämre skolresultat ökar med tiden — därför är tidiga, anpassade insatser avgörande.</p>
+
+            <div class="faq-q">Vad visar forskningen fungerar bäst?</div>
+            <p class="faq-a">En stegvis återgång — inte att pressa fram full närvaro direkt — i kombination med samverkan mellan hem, skola och vid behov BUP. Att först förstå den bakomliggande orsaken, innan insatser sätts in, ökar chansen att de faktiskt hjälper.</p>
+
+            <div class="faq-q">Var kan jag läsa mer?</div>
+            <p class="faq-a">Malin Gren Landell, psykolog och tidigare regeringens utredare av skolfrånvaro, är den mest citerade svenska forskaren på området. Hennes bok <em>"Problematisk skolfrånvaro: att utreda och hjälpa barn och unga tillbaka till skolan"</em> (Natur &amp; Kultur, 2021) och den statliga utredningen <em>"Saknad! Uppmärksamma elevers frånvaro och agera"</em> (SOU 2016:94) är bra startpunkter.</p>
+        </div>
     </div>
 
     <!-- ===== GUIDAT LÄGE MODAL ===== -->
@@ -1330,6 +1404,58 @@
         });
         document.getElementById('guideNextBtn').addEventListener('click', nextGuideStep);
         document.getElementById('guidePrevBtn').addEventListener('click', prevGuideStep);
+
+        document.getElementById('openAboutLink').addEventListener('click', function() {
+            document.getElementById('aboutModal').classList.add('active');
+        });
+        document.getElementById('closeAboutBtn').addEventListener('click', function() {
+            document.getElementById('aboutModal').classList.remove('active');
+        });
+        document.getElementById('aboutModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
+        });
+
+        document.getElementById('openFaqLink').addEventListener('click', function() {
+            document.getElementById('faqModal').classList.add('active');
+        });
+        document.getElementById('closeFaqBtn').addEventListener('click', function() {
+            document.getElementById('faqModal').classList.remove('active');
+        });
+        document.getElementById('faqModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
+        });
+
+        function copyEmailFallback(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                console.warn('Kopiering misslyckades:', err);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        document.getElementById('contactLink').addEventListener('click', function() {
+            const email = 'foraldrapasset@gmail.com';
+            const note = document.getElementById('contactCopiedNote');
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).catch(function() {
+                    copyEmailFallback(email);
+                });
+            } else {
+                copyEmailFallback(email);
+            }
+
+            note.style.display = 'inline';
+            setTimeout(function() { note.style.display = 'none'; }, 2200);
+        });
 
         document.getElementById('openReactionBtn').addEventListener('click', openReactionModal);
         document.getElementById('closeReactionBtn').addEventListener('click', closeReactionModal);
