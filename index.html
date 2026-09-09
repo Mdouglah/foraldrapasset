@@ -553,8 +553,110 @@
         .faq-a ul {
             margin: 8px 0 4px 20px;
         }
-        .faq-a li {
+        .feedback-field {
+            margin-bottom: 18px;
+        }
+        .feedback-label {
+            font-weight: 500;
+            font-size: 14px;
+            display: block;
             margin-bottom: 6px;
+        }
+        .feedback-field select,
+        .feedback-field textarea {
+            width: 100%;
+            border: 1px solid #dde3de;
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #1e2a24;
+            background: white;
+            resize: vertical;
+        }
+        .feedback-field select:focus,
+        .feedback-field textarea:focus {
+            outline: none;
+            border-color: #2c5f4a;
+        }
+        .scale-row {
+            display: flex;
+            gap: 8px;
+        }
+        .scale-option {
+            flex: 1;
+        }
+        .scale-option input {
+            display: none;
+        }
+        .scale-option label {
+            display: block;
+            text-align: center;
+            padding: 9px 0;
+            border: 1px solid #dde3de;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .scale-option input:checked + label {
+            background: #2c5f4a;
+            border-color: #2c5f4a;
+            color: white;
+        }
+        .check-row, .radio-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .check-row label, .radio-row label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .feedback-submit {
+            width: 100%;
+            background: #2c5f4a;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 0;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: 0.2s;
+            margin-top: 6px;
+        }
+        .feedback-submit:hover {
+            background: #3d7a62;
+        }
+        .copy-inline {
+            background: none;
+            border: 1px solid #2c5f4a;
+            color: #2c5f4a;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.2s;
+        }
+        .copy-inline:hover {
+            background: #2c5f4a;
+            color: white;
+        }
+        .npf-category {
+            margin-bottom: 28px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid #dde3de;
+        }
+        .npf-category:last-of-type {
+            border-bottom: none;
         }
         .footer {
             margin-top: 32px;
@@ -621,6 +723,12 @@
             </button>
             <button class="action-btn" id="openReactionBtn">
                 <span class="icon">🛠️</span> Reaktionsguiden
+            </button>
+            <button class="action-btn" id="openFeedbackBtn">
+                <span class="icon">💬</span> Ge feedback
+            </button>
+            <button class="action-btn" id="openNpfBtn">
+                <span class="icon">🧩</span> Bemötande &amp; diagnos
             </button>
         </div>
 
@@ -714,6 +822,180 @@
 
             <div class="faq-q">Var kan jag läsa mer?</div>
             <p class="faq-a">Malin Gren Landell, psykolog och tidigare regeringens utredare av skolfrånvaro, är den mest citerade svenska forskaren på området. Hennes bok <em>"Problematisk skolfrånvaro: att utreda och hjälpa barn och unga tillbaka till skolan"</em> (Natur &amp; Kultur, 2021) och den statliga utredningen <em>"Saknad! Uppmärksamma elevers frånvaro och agera"</em> (SOU 2016:94) är bra startpunkter.</p>
+        </div>
+    </div>
+
+    <!-- ===== FEEDBACK MODAL ===== -->
+    <div class="modal-overlay" id="feedbackModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>💬 Ge feedback</h2>
+                <button class="modal-close" id="closeFeedbackBtn">✕</button>
+            </div>
+
+            <p style="font-size:14px; color:#5a6b62; margin-bottom:18px;">
+                Din feedback hjälper oss göra Föräldrapasset bättre. Tar under en minut.
+            </p>
+
+            <div class="feedback-field">
+                <label class="feedback-label">Hur gammalt är ditt barn?</label>
+                <select id="fbAge">
+                    <option value="">Välj...</option>
+                    <option value="6–9 år">6–9 år</option>
+                    <option value="10–13 år">10–13 år</option>
+                    <option value="14–16 år">14–16 år</option>
+                </select>
+            </div>
+
+            <div class="feedback-field">
+                <label class="feedback-label">Hur länge har ni använt appen?</label>
+                <select id="fbDuration">
+                    <option value="">Välj...</option>
+                    <option value="Första gången idag">Första gången idag</option>
+                    <option value="Några dagar">Några dagar</option>
+                    <option value="Mer än en vecka">Mer än en vecka</option>
+                </select>
+            </div>
+
+            <div class="feedback-field">
+                <label class="feedback-label">Hur användbar var appen för dig just nu?</label>
+                <div class="scale-row">
+                    <div class="scale-option"><input type="radio" name="fbScale" id="fbScale1" value="1"><label for="fbScale1">1</label></div>
+                    <div class="scale-option"><input type="radio" name="fbScale" id="fbScale2" value="2"><label for="fbScale2">2</label></div>
+                    <div class="scale-option"><input type="radio" name="fbScale" id="fbScale3" value="3"><label for="fbScale3">3</label></div>
+                    <div class="scale-option"><input type="radio" name="fbScale" id="fbScale4" value="4"><label for="fbScale4">4</label></div>
+                    <div class="scale-option"><input type="radio" name="fbScale" id="fbScale5" value="5"><label for="fbScale5">5</label></div>
+                </div>
+            </div>
+
+            <div class="feedback-field">
+                <label class="feedback-label">Vilken del hjälpte dig mest? (flera val möjliga)</label>
+                <div class="check-row">
+                    <label><input type="checkbox" name="fbPart" value="Guidat läge"> Guidat läge</label>
+                    <label><input type="checkbox" name="fbPart" value="Reaktionsguiden"> Reaktionsguiden</label>
+                    <label><input type="checkbox" name="fbPart" value="Chattläget"> Chattläget</label>
+                    <label><input type="checkbox" name="fbPart" value="Morgonrutiner"> Morgonrutiner</label>
+                </div>
+            </div>
+
+            <div class="feedback-field">
+                <label class="feedback-label">Var något svårt att förstå eller hitta?</label>
+                <textarea id="fbDifficult" rows="3"></textarea>
+            </div>
+
+            <div class="feedback-field">
+                <label class="feedback-label">Vad saknar du, eller vad hade du velat se mer av?</label>
+                <textarea id="fbMissing" rows="3"></textarea>
+            </div>
+
+            <div class="feedback-field">
+                <label class="feedback-label">Skulle du rekommendera appen till en annan förälder?</label>
+                <div class="radio-row">
+                    <label><input type="radio" name="fbRecommend" value="Ja"> Ja</label>
+                    <label><input type="radio" name="fbRecommend" value="Kanske"> Kanske</label>
+                    <label><input type="radio" name="fbRecommend" value="Nej"> Nej</label>
+                </div>
+            </div>
+
+            <div class="feedback-field">
+                <label class="feedback-label">Övriga tankar</label>
+                <textarea id="fbOther" rows="3"></textarea>
+            </div>
+
+            <button class="feedback-submit" id="sendFeedbackBtn">Skicka feedback</button>
+        </div>
+    </div>
+
+    <!-- ===== BEMÖTANDE & DIAGNOS MODAL ===== -->
+    <div class="modal-overlay" id="npfModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>🧩 Bemötande &amp; diagnos</h2>
+                <button class="modal-close" id="closeNpfBtn">✕</button>
+            </div>
+
+            <div class="modal-disclaimer">
+                Det här är pedagogiska bemötande-principer utifrån etablerad kunskap — inte en diagnos eller behandling. Variationen inom varje kategori är stor, så se det som en utgångspunkt, inte ett facit för just ditt barn. Vid osäkerhet, kontakta BUP eller vårdcentral för bedömning.
+            </div>
+
+            <div class="npf-category">
+                <div class="faq-q">🧩 Adhd/add</div>
+                <p class="faq-a"><strong>Hemma:</strong></p>
+                <ul style="margin:4px 0 12px 20px; font-size:14.5px;">
+                    <li>Ge en instruktion i taget, kort och konkret — "ta på skorna" fungerar bättre än "gör dig klar"</li>
+                    <li>Bygg in rörelsepauser i vardagen — förvänta dig inte att barnet sitter still länge</li>
+                    <li>Ge omedelbar uppmuntran när något går bra, snarare än att vänta till "efteråt"</li>
+                    <li>Korta, direkta belöningar fungerar ofta bättre som motivation än långsiktiga löften</li>
+                </ul>
+                <div class="box">
+                    🏫 Så kan du förklara för skolan:<br>
+                    <em>Mitt barn tar lättast till sig en instruktion i taget, gärna med visuellt stöd. Kort, direkt feedback fungerar bättre än att vänta till lektionens slut, och rörelsepauser brukar hjälpa snarare än störa.</em><br>
+                    <button class="copy-inline" data-copy="Mitt barn tar lättast till sig en instruktion i taget, gärna med visuellt stöd. Kort, direkt feedback fungerar bättre än att vänta till lektionens slut, och rörelsepauser brukar hjälpa snarare än störa.">Kopiera</button>
+                </div>
+            </div>
+
+            <div class="npf-category">
+                <div class="faq-q">🧩 Autism (AST)</div>
+                <p class="faq-a"><strong>Hemma:</strong></p>
+                <ul style="margin:4px 0 12px 20px; font-size:14.5px;">
+                    <li>Berätta i förväg vad som ska hända och i vilken ordning — överraskningar skapar ofta mer stress än själva kravet</li>
+                    <li>Var konkret och bokstavlig i språket — undvik uttryck som kan misstolkas</li>
+                    <li>Ge tydliga, förutsägbara övergångar ("om 5 minuter är det dags att...")</li>
+                    <li>Tänk på sinnesintryck hemma (ljud, ljus, kläder) som kan påverka morgon och kväll</li>
+                </ul>
+                <div class="box">
+                    🏫 Så kan du förklara för skolan:<br>
+                    <em>Mitt barn mår bäst av att veta i förväg om schemat ändras. Bildstöd eller skriftligt schema hjälper mer än muntliga genomgångar, och tydliga övergångar mellan moment gör stor skillnad.</em><br>
+                    <button class="copy-inline" data-copy="Mitt barn mår bäst av att veta i förväg om schemat ändras. Bildstöd eller skriftligt schema hjälper mer än muntliga genomgångar, och tydliga övergångar mellan moment gör stor skillnad.">Kopiera</button>
+                </div>
+            </div>
+
+            <div class="npf-category">
+                <div class="faq-q">🧩 Ångest (med eller utan diagnos)</div>
+                <p class="faq-a"><strong>Hemma:</strong></p>
+                <ul style="margin:4px 0 12px 20px; font-size:14.5px;">
+                    <li>Validera känslan utan att bekräfta att faran är lika stor som den känns — "jag hör att det känns läskigt", inte förminska eller överdriva</li>
+                    <li>Gå gradvis framåt istället för att antingen undvika helt eller pressa fram allt på en gång</li>
+                    <li>Var en trygg, förutsägbar närvaro — visa att du finns kvar, utan att låta ångesten styra hela planen</li>
+                    <li>Undvik överdriven försäkran ("det kommer bli jättebra!") — det kan kännas som att känslan inte tas på allvar</li>
+                </ul>
+                <div class="box">
+                    🏫 Så kan du förklara för skolan:<br>
+                    <em>Mitt barn behöver kunna gå undan till en trygg plats vid behov, utan att det blir en stor grej. En gradvis återgång fungerar bättre än att förvänta full närvaro direkt, och helst undviks frågor inför hela klassen.</em><br>
+                    <button class="copy-inline" data-copy="Mitt barn behöver kunna gå undan till en trygg plats vid behov, utan att det blir en stor grej. En gradvis återgång fungerar bättre än att förvänta full närvaro direkt, och helst undviks frågor inför hela klassen.">Kopiera</button>
+                </div>
+            </div>
+
+            <div class="npf-category">
+                <div class="faq-q">🧩 Selektiv mutism</div>
+                <p class="faq-a"><strong>Hemma:</strong></p>
+                <ul style="margin:4px 0 12px 20px; font-size:14.5px;">
+                    <li>Det handlar inte om blyghet eller trots — barnet vill men kan i vissa situationer bokstavligen inte prata, på grund av ångest</li>
+                    <li>Tvinga aldrig fram tal ("säg hej, då får du...") — det ökar pressen och gör det ofta svårare</li>
+                    <li>Acceptera icke-verbal kommunikation (nick, peka, skriva) som fullgod kommunikation under tiden</li>
+                    <li>Fira små steg utan att göra det till en stor grej — själva uppmärksamheten kan i sig kännas som press</li>
+                </ul>
+                <div class="box">
+                    🏫 Så kan du förklara för skolan:<br>
+                    <em>Mitt barn kan inte prata i vissa situationer just nu — det handlar om ångest, inte ovilja. Tvinga aldrig fram svar inför grupp; alternativa sätt att visa kunskap (skriftligt, peka, nicka) hjälper, och framsteg behöver ske i barnets eget tempo.</em><br>
+                    <button class="copy-inline" data-copy="Mitt barn kan inte prata i vissa situationer just nu — det handlar om ångest, inte ovilja. Tvinga aldrig fram svar inför grupp; alternativa sätt att visa kunskap (skriftligt, peka, nicka) hjälper, och framsteg behöver ske i barnets eget tempo.">Kopiera</button>
+                </div>
+            </div>
+
+            <div class="npf-category">
+                <div class="faq-q">🧩 Utan fastställd diagnos</div>
+                <p class="faq-a"><strong>Hemma:</strong></p>
+                <ul style="margin:4px 0 12px 20px; font-size:14.5px;">
+                    <li>Samma principer — struktur, förutsägbarhet, validering — fungerar oavsett om en diagnos är satt eller inte</li>
+                    <li>Ni behöver inte vänta med att hjälpa barnet tills en eventuell utredning är klar</li>
+                    <li>Skriv gärna ner vad som fungerar och inte fungerar hemma — värdefullt underlag om en utredning blir aktuell</li>
+                </ul>
+                <div class="box">
+                    🏫 Så kan du förklara för skolan:<br>
+                    <em>Vi ser vissa mönster hemma, även om vi inte har en fastställd diagnos. Kan vi ändå testa anpassningar utifrån det vi ser fungerar?</em><br>
+                    <button class="copy-inline" data-copy="Vi ser vissa mönster hemma, även om vi inte har en fastställd diagnos. Kan vi ändå testa anpassningar utifrån det vi ser fungerar?">Kopiera</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1505,6 +1787,78 @@
         });
         document.getElementById('faqModal').addEventListener('click', function(e) {
             if (e.target === this) this.classList.remove('active');
+        });
+
+        document.getElementById('openFeedbackBtn').addEventListener('click', function() {
+            document.getElementById('feedbackModal').classList.add('active');
+        });
+        document.getElementById('closeFeedbackBtn').addEventListener('click', function() {
+            document.getElementById('feedbackModal').classList.remove('active');
+        });
+        document.getElementById('feedbackModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
+        });
+
+        document.getElementById('openNpfBtn').addEventListener('click', function() {
+            document.getElementById('npfModal').classList.add('active');
+        });
+        document.getElementById('closeNpfBtn').addEventListener('click', function() {
+            document.getElementById('npfModal').classList.remove('active');
+        });
+        document.getElementById('npfModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
+        });
+
+        document.querySelectorAll('.copy-inline').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const text = this.dataset.copy;
+                const original = this.textContent;
+                const self = this;
+                function done() {
+                    self.textContent = 'Kopierat ✓';
+                    setTimeout(function() { self.textContent = original; }, 1800);
+                }
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(done).catch(function() {
+                        copyEmailFallback(text);
+                        done();
+                    });
+                } else {
+                    copyEmailFallback(text);
+                    done();
+                }
+            });
+        });
+
+        document.getElementById('sendFeedbackBtn').addEventListener('click', function() {
+            const age = document.getElementById('fbAge').value || 'Ej angivet';
+            const duration = document.getElementById('fbDuration').value || 'Ej angivet';
+            const scaleEl = document.querySelector('input[name="fbScale"]:checked');
+            const scale = scaleEl ? scaleEl.value + '/5' : 'Ej angivet';
+            const parts = Array.from(document.querySelectorAll('input[name="fbPart"]:checked')).map(el => el.value);
+            const partsText = parts.length ? parts.join(', ') : 'Ej angivet';
+            const difficult = document.getElementById('fbDifficult').value || '(inget skrivet)';
+            const missing = document.getElementById('fbMissing').value || '(inget skrivet)';
+            const recommendEl = document.querySelector('input[name="fbRecommend"]:checked');
+            const recommend = recommendEl ? recommendEl.value : 'Ej angivet';
+            const other = document.getElementById('fbOther').value || '(inget skrivet)';
+
+            const body =
+                'FEEDBACK FÖRÄLDRAPASSET\n\n' +
+                'Barnets ålder: ' + age + '\n' +
+                'Hur länge använt appen: ' + duration + '\n\n' +
+                'Hur användbar (1-5): ' + scale + '\n' +
+                'Mest hjälpsamma del(ar): ' + partsText + '\n\n' +
+                'Vad var svårt att förstå/hitta:\n' + difficult + '\n\n' +
+                'Vad saknas:\n' + missing + '\n\n' +
+                'Skulle rekommendera: ' + recommend + '\n\n' +
+                'Övriga tankar:\n' + other;
+
+            const mailtoLink = 'mailto:foraldrapasset@gmail.com?subject=' +
+                encodeURIComponent('Feedback - Föräldrapasset') +
+                '&body=' + encodeURIComponent(body);
+
+            window.location.href = mailtoLink;
         });
 
         function copyEmailFallback(text) {
