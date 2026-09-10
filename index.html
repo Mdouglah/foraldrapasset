@@ -848,19 +848,96 @@
 
     <!-- ===== FEEDBACK MODAL ===== -->
     <div class="modal-overlay" id="feedbackModal">
-        <div class="modal-box" style="padding:20px 12px;">
-            <div class="modal-header" style="padding:0 18px;">
+        <div class="modal-box">
+            <div class="modal-header">
                 <h2>💬 Ge feedback</h2>
                 <button class="modal-close" id="closeFeedbackBtn">✕</button>
             </div>
 
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfXMjmCpYPuiSi-Yg7wybaboP6EJoToshiZRPG_70tGNOA-kQ/viewform?embedded=true"
-                width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0"
-                style="border-radius:12px;">
-                Läser in …
-            </iframe>
+            <div id="feedbackFormWrap">
+                <p style="font-size:14px; color:#5a6b62; margin-bottom:18px;">
+                    Din feedback hjälper oss göra Föräldrapasset bättre. Tar under en minut.
+                </p>
+
+                <div class="feedback-field">
+                    <label class="feedback-label">Hur användbar var appen för dig just nu?</label>
+                    <div class="scale-row">
+                        <div class="scale-option"><input type="radio" name="fbScale" id="fbScale1" value="1"><label for="fbScale1">1</label></div>
+                        <div class="scale-option"><input type="radio" name="fbScale" id="fbScale2" value="2"><label for="fbScale2">2</label></div>
+                        <div class="scale-option"><input type="radio" name="fbScale" id="fbScale3" value="3"><label for="fbScale3">3</label></div>
+                        <div class="scale-option"><input type="radio" name="fbScale" id="fbScale4" value="4"><label for="fbScale4">4</label></div>
+                        <div class="scale-option"><input type="radio" name="fbScale" id="fbScale5" value="5"><label for="fbScale5">5</label></div>
+                    </div>
+                </div>
+
+                <div class="feedback-field">
+                    <label class="feedback-label">Hur gammalt är ditt barn?</label>
+                    <select id="fbAge">
+                        <option value="">Välj...</option>
+                        <option value="6-9 år">6–9 år</option>
+                        <option value="10-13 år">10–13 år</option>
+                        <option value="14-16 år">14–16 år</option>
+                    </select>
+                </div>
+
+                <div class="feedback-field">
+                    <label class="feedback-label">Hur länge har ni använt appen?</label>
+                    <select id="fbDuration">
+                        <option value="">Välj...</option>
+                        <option value="Första gången idag">Första gången idag</option>
+                        <option value="Några dagar">Några dagar</option>
+                        <option value="Mer än en vecka">Mer än en vecka</option>
+                    </select>
+                </div>
+
+                <div class="feedback-field">
+                    <label class="feedback-label">Vilken del hjälpte dig mest? (flera val möjliga)</label>
+                    <div class="check-row">
+                        <label><input type="checkbox" name="fbPart" value="Guidat läge"> Guidat läge</label>
+                        <label><input type="checkbox" name="fbPart" value="Reaktionsguiden"> Reaktionsguiden</label>
+                        <label><input type="checkbox" name="fbPart" value="Chattläget"> Chattläget</label>
+                        <label><input type="checkbox" name="fbPart" value="Morgonrutiner"> Morgonrutiner</label>
+                        <label><input type="checkbox" name="fbPart" value="Bemötande & diagnos"> Bemötande &amp; diagnos</label>
+                    </div>
+                </div>
+
+                <div class="feedback-field">
+                    <label class="feedback-label">Var något svårt att förstå eller hitta?</label>
+                    <textarea id="fbDifficult" rows="3"></textarea>
+                </div>
+
+                <div class="feedback-field">
+                    <label class="feedback-label">Vad saknar du, eller vad hade du velat se mer av?</label>
+                    <textarea id="fbMissing" rows="3"></textarea>
+                </div>
+
+                <div class="feedback-field">
+                    <label class="feedback-label">Skulle du rekommendera appen till en annan förälder?</label>
+                    <div class="radio-row">
+                        <label><input type="radio" name="fbRecommend" value="Ja"> Ja</label>
+                        <label><input type="radio" name="fbRecommend" value="Kanske"> Kanske</label>
+                        <label><input type="radio" name="fbRecommend" value="Nej"> Nej</label>
+                    </div>
+                </div>
+
+                <div class="feedback-field">
+                    <label class="feedback-label">Övriga tankar</label>
+                    <textarea id="fbOther" rows="3"></textarea>
+                </div>
+
+                <button class="feedback-submit" id="sendFeedbackBtn">Skicka feedback</button>
+            </div>
+
+            <div id="feedbackThanks" style="display:none; text-align:center; padding:30px 10px;">
+                <div style="font-size:40px; margin-bottom:10px;">💚</div>
+                <p style="font-size:17px; font-weight:500; color:#2c5f4a; margin-bottom:8px;">Tack för din feedback!</p>
+                <p style="font-size:14px; color:#5a6b62;">Den hjälper oss göra Föräldrapasset bättre för fler familjer.</p>
+            </div>
         </div>
     </div>
+
+    <!-- Dold ruta som tar emot inskickningen utan att lämna sidan -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
     <!-- ===== BEMÖTANDE & DIAGNOS MODAL ===== -->
     <div class="modal-overlay" id="npfModal">
@@ -1747,12 +1824,56 @@
 
         document.getElementById('openFeedbackBtn').addEventListener('click', function() {
             document.getElementById('feedbackModal').classList.add('active');
+            document.getElementById('feedbackFormWrap').style.display = 'block';
+            document.getElementById('feedbackThanks').style.display = 'none';
         });
         document.getElementById('closeFeedbackBtn').addEventListener('click', function() {
             document.getElementById('feedbackModal').classList.remove('active');
         });
         document.getElementById('feedbackModal').addEventListener('click', function(e) {
             if (e.target === this) this.classList.remove('active');
+        });
+
+        document.getElementById('sendFeedbackBtn').addEventListener('click', function() {
+            const scaleEl = document.querySelector('input[name="fbScale"]:checked');
+            const age = document.getElementById('fbAge').value;
+            const duration = document.getElementById('fbDuration').value;
+            const parts = Array.from(document.querySelectorAll('input[name="fbPart"]:checked')).map(el => el.value);
+            const difficult = document.getElementById('fbDifficult').value;
+            const missing = document.getElementById('fbMissing').value;
+            const recommendEl = document.querySelector('input[name="fbRecommend"]:checked');
+            const other = document.getElementById('fbOther').value;
+
+            const fields = [];
+            if (scaleEl) fields.push({ name: 'entry.685733864', value: scaleEl.value });
+            if (age) fields.push({ name: 'entry.594593846', value: age });
+            if (duration) fields.push({ name: 'entry.2014748902', value: duration });
+            parts.forEach(p => fields.push({ name: 'entry.926617699', value: p }));
+            if (difficult) fields.push({ name: 'entry.980381504', value: difficult });
+            if (missing) fields.push({ name: 'entry.1316157229', value: missing });
+            if (recommendEl) fields.push({ name: 'entry.1858471525', value: recommendEl.value });
+            if (other) fields.push({ name: 'entry.1586303975', value: other });
+
+            const form = document.createElement('form');
+            form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfXMjmCpYPuiSi-Yg7wybaboP6EJoToshiZRPG_70tGNOA-kQ/formResponse';
+            form.method = 'POST';
+            form.target = 'hidden_iframe';
+            form.style.display = 'none';
+
+            fields.forEach(function(f) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = f.name;
+                input.value = f.value;
+                form.appendChild(input);
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+            setTimeout(function() { document.body.removeChild(form); }, 1000);
+
+            document.getElementById('feedbackFormWrap').style.display = 'none';
+            document.getElementById('feedbackThanks').style.display = 'block';
         });
 
         document.getElementById('openNpfBtn').addEventListener('click', function() {
