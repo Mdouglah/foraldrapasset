@@ -658,6 +658,13 @@
         .npf-category:last-of-type {
             border-bottom: none;
         }
+        @media print {
+            body * { visibility: hidden; }
+            .print-summary, .print-summary * { visibility: visible; }
+            .print-summary { position: absolute; top: 0; left: 0; width: 100%; padding: 20px; }
+            .print-summary h2 { font-family: 'Fraunces', serif; color: #2c5f4a; }
+            .print-summary h3 { font-family: 'Fraunces', serif; color: #2c5f4a; margin-top: 18px; font-size: 15px; }
+        }
         .footer {
             margin-top: 32px;
             padding-top: 18px;
@@ -724,11 +731,17 @@
             <button class="action-btn" id="openReactionBtn">
                 <span class="icon">🛠️</span> Reaktionsguiden
             </button>
-            <button class="action-btn" id="openFeedbackBtn">
+            <a class="action-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfXMjmCpYPuiSi-Yg7wybaboP6EJoToshiZRPG_70tGNOA-kQ/viewform" target="_blank" rel="noopener" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">
                 <span class="icon">💬</span> Ge feedback
-            </button>
+            </a>
             <button class="action-btn" id="openNpfBtn">
                 <span class="icon">🧩</span> Bemötande &amp; diagnos
+            </button>
+            <button class="action-btn" id="openMeetingDocBtn">
+                <span class="icon">📄</span> Mötesunderlag
+            </button>
+            <button class="action-btn" id="openSelfCareBtn">
+                <span class="icon">❤️</span> Glöm inte dig själv
             </button>
         </div>
 
@@ -754,6 +767,17 @@
                 <div class="question">❓ <strong id="responseQuestion"></strong></div>
                 <div class="answer" id="responseAnswer"></div>
                 <div class="tags" id="responseTags"></div>
+
+                <div id="unansweredWidget" style="display:none; margin-top:14px; padding-top:14px; border-top:1px solid #dde3de;">
+                    <div id="unansweredForm">
+                        <label class="feedback-label" style="margin-bottom:6px; display:block;">Vill du ha ett personligt svar? Lämna din mejl (frivilligt)</label>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                            <input type="email" id="unansweredEmail" placeholder="din@mejl.se" style="flex:1; min-width:160px; border:1px solid #dde3de; border-radius:8px; padding:8px 12px; font-family:'Inter',sans-serif; font-size:14px;">
+                            <button id="sendUnansweredBtn" style="background:#2c5f4a; color:white; border:none; border-radius:40px; padding:8px 18px; font-size:13px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif;">Skicka frågan till oss</button>
+                        </div>
+                    </div>
+                    <p id="unansweredThanks" style="display:none; font-size:13px; color:#2c5f4a; margin-top:4px;">Formuläret öppnades i en ny flik med din fråga redan ifylld — tryck Skicka där för att skicka in den.</p>
+                </div>
             </div>
         </div>
 
@@ -823,6 +847,12 @@
             <div class="faq-q">Vad visar forskningen fungerar bäst?</div>
             <p class="faq-a">En stegvis återgång — inte att pressa fram full närvaro direkt — i kombination med samverkan mellan hem, skola och vid behov BUP. Att först förstå den bakomliggande orsaken, innan insatser sätts in, ökar chansen att de faktiskt hjälper.</p>
 
+            <div class="faq-q">Vad är mitt ansvar som förälder?</div>
+            <p class="faq-a">Du kan lyssna, skapa trygghet hemma, hjälpa med rutiner, kontakta skolan, dokumentera vad ni ser, be om möten, söka vård när det behövs och följa upp. Du kan däremot inte ensam lösa skolans lärmiljö, utreda skolans stödbehov, lösa mobbning på egen hand, eller behandla psykisk ohälsa. Att veta var gränsen går kan minska mycket skuld.</p>
+
+            <div class="faq-q">Vad är skolans ansvar?</div>
+            <p class="faq-a">Skolan behöver uppmärksamma frånvaro, utreda vad som ligger bakom, sätta in stöd utifrån elevens behov, följa upp insatserna och samverka med er som vårdnadshavare. Exakt vad som gäller i er situation kan variera, men ni har alltid rätt att fråga hur skolan bedömt ert barns behov.</p>
+
             <div class="faq-q">Behöver jag en diagnos för att få hjälp av skolan?</div>
             <p class="faq-a">Nej. Skolan är skyldig att utreda och ge stöd utifrån elevens behov, oavsett om det finns en fastställd diagnos eller inte. Se Reaktionsguidens kategori "🏫 Skolan" och chattfrågan "vad har jag rätt till?" för mer om era rättigheter.</p>
 
@@ -846,98 +876,101 @@
         </div>
     </div>
 
-    <!-- ===== FEEDBACK MODAL ===== -->
-    <div class="modal-overlay" id="feedbackModal">
+    <!-- ===== MÖTESUNDERLAG MODAL ===== -->
+    <div class="modal-overlay" id="meetingDocModal">
         <div class="modal-box">
             <div class="modal-header">
-                <h2>💬 Ge feedback</h2>
-                <button class="modal-close" id="closeFeedbackBtn">✕</button>
+                <h2>📄 Mötesunderlag</h2>
+                <button class="modal-close" id="closeMeetingDocBtn">✕</button>
             </div>
 
-            <div id="feedbackFormWrap">
+            <div id="meetingDocFormWrap">
                 <p style="font-size:14px; color:#5a6b62; margin-bottom:18px;">
-                    Din feedback hjälper oss göra Föräldrapasset bättre. Tar under en minut.
+                    Fyll i det här inför ett möte med skolan. Du behöver inte veta lösningen — ditt viktigaste jobb är att kunna beskriva vad ni ser hemma, vad barnet berättar, och vad som fungerar eller inte.
                 </p>
 
                 <div class="feedback-field">
-                    <label class="feedback-label">Hur användbar var appen för dig just nu?</label>
-                    <div class="scale-row">
-                        <div class="scale-option"><input type="radio" name="fbScale" id="fbScale1" value="1"><label for="fbScale1">1</label></div>
-                        <div class="scale-option"><input type="radio" name="fbScale" id="fbScale2" value="2"><label for="fbScale2">2</label></div>
-                        <div class="scale-option"><input type="radio" name="fbScale" id="fbScale3" value="3"><label for="fbScale3">3</label></div>
-                        <div class="scale-option"><input type="radio" name="fbScale" id="fbScale4" value="4"><label for="fbScale4">4</label></div>
-                        <div class="scale-option"><input type="radio" name="fbScale" id="fbScale5" value="5"><label for="fbScale5">5</label></div>
-                    </div>
-                </div>
-
-                <div class="feedback-field">
-                    <label class="feedback-label">Hur gammalt är ditt barn?</label>
-                    <select id="fbAge">
-                        <option value="">Välj...</option>
-                        <option value="6-9 år">6–9 år</option>
-                        <option value="10-13 år">10–13 år</option>
-                        <option value="14-16 år">14–16 år</option>
-                    </select>
-                </div>
-
-                <div class="feedback-field">
-                    <label class="feedback-label">Hur länge har ni använt appen?</label>
-                    <select id="fbDuration">
-                        <option value="">Välj...</option>
-                        <option value="Första gången idag">Första gången idag</option>
-                        <option value="Några dagar">Några dagar</option>
-                        <option value="Mer än en vecka">Mer än en vecka</option>
-                    </select>
-                </div>
-
-                <div class="feedback-field">
-                    <label class="feedback-label">Vilken del hjälpte dig mest? (flera val möjliga)</label>
+                    <label class="feedback-label">Vad ser vi hemma? (flera val möjliga)</label>
                     <div class="check-row">
-                        <label><input type="checkbox" name="fbPart" value="Guidat läge"> Guidat läge</label>
-                        <label><input type="checkbox" name="fbPart" value="Reaktionsguiden"> Reaktionsguiden</label>
-                        <label><input type="checkbox" name="fbPart" value="Chattläget"> Chattläget</label>
-                        <label><input type="checkbox" name="fbPart" value="Morgonrutiner"> Morgonrutiner</label>
-                        <label><input type="checkbox" name="fbPart" value="Bemötande & diagnos"> Bemötande &amp; diagnos</label>
+                        <label><input type="checkbox" class="mdCheck" value="Morgonen är svår"> Morgonen är svår</label>
+                        <label><input type="checkbox" class="mdCheck" value="Ångest"> Ångest</label>
+                        <label><input type="checkbox" class="mdCheck" value="Sömnproblem"> Sömnproblem</label>
+                        <label><input type="checkbox" class="mdCheck" value="Ont i magen eller huvudet"> Ont i magen eller huvudet</label>
+                        <label><input type="checkbox" class="mdCheck" value="Konflikter hemma"> Konflikter hemma</label>
+                        <label><input type="checkbox" class="mdCheck" value="Berättar om mobbning"> Berättar om mobbning</label>
+                        <label><input type="checkbox" class="mdCheck" value="Helt slut efter skoldagen"> Helt slut efter skoldagen</label>
                     </div>
                 </div>
 
                 <div class="feedback-field">
-                    <label class="feedback-label">Var något svårt att förstå eller hitta?</label>
-                    <textarea id="fbDifficult" rows="3"></textarea>
+                    <label class="feedback-label">Vad berättar barnet själv?</label>
+                    <textarea id="mdChildSays" rows="3"></textarea>
                 </div>
 
                 <div class="feedback-field">
-                    <label class="feedback-label">Vad saknar du, eller vad hade du velat se mer av?</label>
-                    <textarea id="fbMissing" rows="3"></textarea>
+                    <label class="feedback-label">Mitt barns styrkor</label>
+                    <input type="text" id="mdStrengthGood" placeholder="Mitt barn är bra på..." style="width:100%; margin-bottom:8px; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'Inter',sans-serif; font-size:14px;">
+                    <input type="text" id="mdStrengthSafe" placeholder="Mitt barn känner sig tryggt när..." style="width:100%; margin-bottom:8px; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'Inter',sans-serif; font-size:14px;">
+                    <input type="text" id="mdStrengthMotivate" placeholder="Mitt barn blir motiverat av..." style="width:100%; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'Inter',sans-serif; font-size:14px;">
                 </div>
 
                 <div class="feedback-field">
-                    <label class="feedback-label">Skulle du rekommendera appen till en annan förälder?</label>
-                    <div class="radio-row">
-                        <label><input type="radio" name="fbRecommend" value="Ja"> Ja</label>
-                        <label><input type="radio" name="fbRecommend" value="Kanske"> Kanske</label>
-                        <label><input type="radio" name="fbRecommend" value="Nej"> Nej</label>
-                    </div>
+                    <label class="feedback-label">Vad fungerar just nu?</label>
+                    <textarea id="mdWorks" rows="2"></textarea>
                 </div>
 
                 <div class="feedback-field">
-                    <label class="feedback-label">Övriga tankar</label>
-                    <textarea id="fbOther" rows="3"></textarea>
+                    <label class="feedback-label">Vad fungerar inte?</label>
+                    <textarea id="mdNotWorks" rows="2"></textarea>
                 </div>
 
-                <button class="feedback-submit" id="sendFeedbackBtn">Skicka feedback</button>
+                <div class="feedback-field">
+                    <label class="feedback-label">Vad vill vi att skolan undersöker?</label>
+                    <textarea id="mdInvestigate" rows="2"></textarea>
+                </div>
+
+                <div class="feedback-field">
+                    <label class="feedback-label">Förslag på nästa steg</label>
+                    <textarea id="mdNextStep" rows="2"></textarea>
+                </div>
+
+                <button class="feedback-submit" id="generateMeetingDocBtn">Sammanställ mitt underlag</button>
             </div>
 
-            <div id="feedbackThanks" style="display:none; text-align:center; padding:30px 10px;">
-                <div style="font-size:40px; margin-bottom:10px;">💚</div>
-                <p style="font-size:17px; font-weight:500; color:#2c5f4a; margin-bottom:8px;">Tack för din feedback!</p>
-                <p style="font-size:14px; color:#5a6b62;">Den hjälper oss göra Föräldrapasset bättre för fler familjer.</p>
+            <div id="meetingDocResult" style="display:none;">
+                <div class="print-summary" id="meetingDocSummary"></div>
+                <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
+                    <button class="feedback-submit" id="printMeetingDocBtn" style="margin-top:0; flex:1;">🖨️ Skriv ut / Spara som PDF</button>
+                    <button class="copy-inline" id="copyMeetingDocBtn" style="margin-top:0;">📋 Kopiera text</button>
+                    <button class="copy-inline" id="editMeetingDocBtn" style="margin-top:0;">✏️ Redigera igen</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Dold ruta som tar emot inskickningen utan att lämna sidan -->
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    <!-- ===== GLÖM INTE DIG SJÄLV MODAL ===== -->
+    <div class="modal-overlay" id="selfCareModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>❤️ Glöm inte dig själv</h2>
+                <button class="modal-close" id="closeSelfCareBtn">✕</button>
+            </div>
+
+            <p class="faq-a" style="margin-bottom:18px;">
+                Att leva med ett barn som inte kommer till skolan kan vara väldigt påfrestande. Du kan känna skuld, oro, ilska, frustration eller hjälplöshet — ofta flera samtidigt. Det betyder inte att du är en dålig förälder.
+            </p>
+
+            <div class="faq-q">Vad behöver jag just nu?</div>
+            <div class="check-row" style="margin-bottom:10px;">
+                <label><input type="checkbox"> Någon att prata med</label>
+                <label><input type="checkbox"> Mer stöd från skolan</label>
+                <label><input type="checkbox"> Avlastning i vardagen</label>
+                <label><input type="checkbox"> Hjälp att förstå situationen</label>
+                <label><input type="checkbox"> Hjälp att hantera konflikter hemma</label>
+            </div>
+            <p style="font-size:13px; color:#5a6b62;">Det här sparas ingenstans — bara en stund för dig att reflektera.</p>
+        </div>
+    </div>
 
     <!-- ===== BEMÖTANDE & DIAGNOS MODAL ===== -->
     <div class="modal-overlay" id="npfModal">
@@ -1338,7 +1371,7 @@
                     <p><span class="highlight-text">Börja med att inte prata om skolan.</span></p>
                     <ul>
                         <li>Fråga: <em>"Vad är det jobbigaste just nu?"</em></li>
-                        <li>Berätta liknelsen om biobiljetten (sök på "biobiljett" i chatten).</li>
+                        <li>Berätta en liknelse om att skolan redan är betald och väntar (sök på "liknelse" i chatten för fler exempel).</li>
                         <li>Prata med din partner <strong>om</strong> barnet, inte <strong>till</strong> barnet.</li>
                     </ul>
                     <p>Skolan är en <span class="highlight-text">rättighet</span>, inte en skyldighet.</p>
@@ -1693,20 +1726,31 @@
             return null;
         }
 
-        function showResponse(question, data) {
+        function showResponse(question, data, isFallback) {
             const responseDiv = document.getElementById('chatResponse');
             document.getElementById('responseQuestion').textContent = question;
             document.getElementById('responseAnswer').innerHTML = data.answer;
             document.getElementById('responseTags').innerHTML = data.tags.map(t => `<span class="tag">#${t}</span>`).join('');
             responseDiv.classList.add('visible');
             responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            const widget = document.getElementById('unansweredWidget');
+            if (isFallback) {
+                widget.style.display = 'block';
+                widget.dataset.question = question;
+                document.getElementById('unansweredEmail').value = '';
+                document.getElementById('unansweredForm').style.display = 'block';
+                document.getElementById('unansweredThanks').style.display = 'none';
+            } else {
+                widget.style.display = 'none';
+            }
         }
 
         function handleQuestion(question) {
             if (!question || question.trim() === '') return;
             const data = getAnswer(question);
             if (data) {
-                showResponse(question, data);
+                showResponse(question, data, false);
             } else {
                 showResponse(question, {
                     answer: `
@@ -1719,9 +1763,25 @@
                         <p>Prova gärna en av frågorna ovanför fältet — de ger säkrast träff just nu.</p>
                     `,
                     tags: ['väntar på svar']
-                });
+                }, true);
             }
         }
+
+        document.getElementById('sendUnansweredBtn').addEventListener('click', function() {
+            const question = document.getElementById('unansweredWidget').dataset.question || '';
+            const email = document.getElementById('unansweredEmail').value;
+
+            let url = 'https://docs.google.com/forms/d/e/1FAIpQLSfVgjIf17UhlE_YdGFlYtgF5y5Rt2pZJHktAlKjVXZktzD5Sw/viewform?usp=pp_url'
+                + '&entry.1690595547=' + encodeURIComponent(question);
+            if (email) {
+                url += '&entry.1313943688=' + encodeURIComponent(email);
+            }
+
+            window.open(url, '_blank');
+
+            document.getElementById('unansweredForm').style.display = 'none';
+            document.getElementById('unansweredThanks').style.display = 'block';
+        });
 
         function resetChat() {
             document.getElementById('chatResponse').classList.remove('visible');
@@ -1822,58 +1882,103 @@
             if (e.target === this) this.classList.remove('active');
         });
 
-        document.getElementById('openFeedbackBtn').addEventListener('click', function() {
-            document.getElementById('feedbackModal').classList.add('active');
-            document.getElementById('feedbackFormWrap').style.display = 'block';
-            document.getElementById('feedbackThanks').style.display = 'none';
+        document.getElementById('openMeetingDocBtn').addEventListener('click', function() {
+            document.getElementById('meetingDocModal').classList.add('active');
         });
-        document.getElementById('closeFeedbackBtn').addEventListener('click', function() {
-            document.getElementById('feedbackModal').classList.remove('active');
+        document.getElementById('closeMeetingDocBtn').addEventListener('click', function() {
+            document.getElementById('meetingDocModal').classList.remove('active');
         });
-        document.getElementById('feedbackModal').addEventListener('click', function(e) {
+        document.getElementById('meetingDocModal').addEventListener('click', function(e) {
             if (e.target === this) this.classList.remove('active');
         });
 
-        document.getElementById('sendFeedbackBtn').addEventListener('click', function() {
-            const scaleEl = document.querySelector('input[name="fbScale"]:checked');
-            const age = document.getElementById('fbAge').value;
-            const duration = document.getElementById('fbDuration').value;
-            const parts = Array.from(document.querySelectorAll('input[name="fbPart"]:checked')).map(el => el.value);
-            const difficult = document.getElementById('fbDifficult').value;
-            const missing = document.getElementById('fbMissing').value;
-            const recommendEl = document.querySelector('input[name="fbRecommend"]:checked');
-            const other = document.getElementById('fbOther').value;
+        let meetingDocPlainText = '';
 
-            const fields = [];
-            if (scaleEl) fields.push({ name: 'entry.685733864', value: scaleEl.value });
-            if (age) fields.push({ name: 'entry.594593846', value: age });
-            if (duration) fields.push({ name: 'entry.2014748902', value: duration });
-            parts.forEach(p => fields.push({ name: 'entry.926617699', value: p }));
-            if (difficult) fields.push({ name: 'entry.980381504', value: difficult });
-            if (missing) fields.push({ name: 'entry.1316157229', value: missing });
-            if (recommendEl) fields.push({ name: 'entry.1858471525', value: recommendEl.value });
-            if (other) fields.push({ name: 'entry.1586303975', value: other });
+        document.getElementById('generateMeetingDocBtn').addEventListener('click', function() {
+            const checks = Array.from(document.querySelectorAll('.mdCheck:checked')).map(el => el.value);
+            const childSays = document.getElementById('mdChildSays').value || '(inget angivet)';
+            const good = document.getElementById('mdStrengthGood').value;
+            const safe = document.getElementById('mdStrengthSafe').value;
+            const motivate = document.getElementById('mdStrengthMotivate').value;
+            const works = document.getElementById('mdWorks').value || '(inget angivet)';
+            const notWorks = document.getElementById('mdNotWorks').value || '(inget angivet)';
+            const investigate = document.getElementById('mdInvestigate').value || '(inget angivet)';
+            const nextStep = document.getElementById('mdNextStep').value || '(inget angivet)';
 
-            const form = document.createElement('form');
-            form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfXMjmCpYPuiSi-Yg7wybaboP6EJoToshiZRPG_70tGNOA-kQ/formResponse';
-            form.method = 'POST';
-            form.target = 'hidden_iframe';
-            form.style.display = 'none';
+            let strengthsHtml = '';
+            let strengthsPlain = '';
+            if (good) { strengthsHtml += '<li>Bra på: ' + good + '</li>'; strengthsPlain += '- Bra på: ' + good + '\n'; }
+            if (safe) { strengthsHtml += '<li>Känner sig tryggt när: ' + safe + '</li>'; strengthsPlain += '- Känner sig tryggt när: ' + safe + '\n'; }
+            if (motivate) { strengthsHtml += '<li>Motiveras av: ' + motivate + '</li>'; strengthsPlain += '- Motiveras av: ' + motivate + '\n'; }
+            if (!strengthsHtml) { strengthsHtml = '<li>(inget angivet)</li>'; strengthsPlain = '(inget angivet)\n'; }
 
-            fields.forEach(function(f) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = f.name;
-                input.value = f.value;
-                form.appendChild(input);
-            });
+            const checksHtml = checks.length ? checks.map(c => '<li>' + c + '</li>').join('') : '<li>(inget markerat)</li>';
+            const checksPlain = checks.length ? checks.map(c => '- ' + c).join('\n') : '(inget markerat)';
 
-            document.body.appendChild(form);
-            form.submit();
-            setTimeout(function() { document.body.removeChild(form); }, 1000);
+            const dateStr = new Date().toLocaleDateString('sv-SE');
 
-            document.getElementById('feedbackFormWrap').style.display = 'none';
-            document.getElementById('feedbackThanks').style.display = 'block';
+            const summary =
+                '<h2>Mötesunderlag – Föräldrapasset</h2>' +
+                '<p style="color:#5a6b62; font-size:13px;">Skapat ' + dateStr + '</p>' +
+                '<h3>Vad vi ser hemma</h3><ul>' + checksHtml + '</ul>' +
+                '<h3>Vad barnet själv berättar</h3><p>' + childSays + '</p>' +
+                '<h3>Mitt barns styrkor</h3><ul>' + strengthsHtml + '</ul>' +
+                '<h3>Vad fungerar</h3><p>' + works + '</p>' +
+                '<h3>Vad fungerar inte</h3><p>' + notWorks + '</p>' +
+                '<h3>Vad vi vill att skolan undersöker</h3><p>' + investigate + '</p>' +
+                '<h3>Förslag på nästa steg</h3><p>' + nextStep + '</p>';
+
+            meetingDocPlainText =
+                'MÖTESUNDERLAG – FÖRÄLDRAPASSET\n' +
+                'Skapat ' + dateStr + '\n\n' +
+                'VAD VI SER HEMMA\n' + checksPlain + '\n\n' +
+                'VAD BARNET SJÄLV BERÄTTAR\n' + childSays + '\n\n' +
+                'MITT BARNS STYRKOR\n' + strengthsPlain + '\n' +
+                'VAD FUNGERAR\n' + works + '\n\n' +
+                'VAD FUNGERAR INTE\n' + notWorks + '\n\n' +
+                'VAD VI VILL ATT SKOLAN UNDERSÖKER\n' + investigate + '\n\n' +
+                'FÖRSLAG PÅ NÄSTA STEG\n' + nextStep;
+
+            document.getElementById('meetingDocSummary').innerHTML = summary;
+            document.getElementById('meetingDocFormWrap').style.display = 'none';
+            document.getElementById('meetingDocResult').style.display = 'block';
+        });
+
+        document.getElementById('printMeetingDocBtn').addEventListener('click', function() {
+            window.print();
+        });
+
+        document.getElementById('copyMeetingDocBtn').addEventListener('click', function() {
+            const btn = this;
+            const original = btn.textContent;
+            function done() {
+                btn.textContent = 'Kopierat ✓';
+                setTimeout(function() { btn.textContent = original; }, 1800);
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(meetingDocPlainText).then(done).catch(function() {
+                    copyEmailFallback(meetingDocPlainText);
+                    done();
+                });
+            } else {
+                copyEmailFallback(meetingDocPlainText);
+                done();
+            }
+        });
+
+        document.getElementById('editMeetingDocBtn').addEventListener('click', function() {
+            document.getElementById('meetingDocFormWrap').style.display = 'block';
+            document.getElementById('meetingDocResult').style.display = 'none';
+        });
+
+        document.getElementById('openSelfCareBtn').addEventListener('click', function() {
+            document.getElementById('selfCareModal').classList.add('active');
+        });
+        document.getElementById('closeSelfCareBtn').addEventListener('click', function() {
+            document.getElementById('selfCareModal').classList.remove('active');
+        });
+        document.getElementById('selfCareModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
         });
 
         document.getElementById('openNpfBtn').addEventListener('click', function() {
