@@ -650,6 +650,22 @@
             background: #2c5f4a;
             color: white;
         }
+        .util-btn {
+            background: none;
+            border: 1px solid #2c5f4a;
+            color: #2c5f4a;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .util-btn:hover {
+            background: #2c5f4a;
+            color: white;
+        }
         .npf-category {
             margin-bottom: 28px;
             padding-bottom: 22px;
@@ -941,8 +957,8 @@
                 <div class="print-summary" id="meetingDocSummary"></div>
                 <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
                     <button class="feedback-submit" id="printMeetingDocBtn" style="margin-top:0; flex:1;">🖨️ Skriv ut / Spara som PDF</button>
-                    <button class="copy-inline" id="copyMeetingDocBtn" style="margin-top:0;">📋 Kopiera text</button>
-                    <button class="copy-inline" id="editMeetingDocBtn" style="margin-top:0;">✏️ Redigera igen</button>
+                    <button class="util-btn" id="copyMeetingDocBtn" style="margin-top:0;">📋 Kopiera text</button>
+                    <button class="util-btn" id="editMeetingDocBtn" style="margin-top:0;">✏️ Redigera igen</button>
                 </div>
             </div>
         </div>
