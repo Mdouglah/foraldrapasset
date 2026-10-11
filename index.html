@@ -784,13 +784,13 @@
 
                 <div id="unansweredWidget" style="display:none; margin-top:14px; padding-top:14px; border-top:1px solid #dde3de;">
                     <div id="unansweredForm">
-                        <label class="feedback-label" style="margin-bottom:6px; display:block;">Vill du ha ett personligt svar? Lämna din mejl (frivilligt)</label>
+                        <label class="feedback-label" style="margin-bottom:6px; display:block;">Vill du ha ett personligt svar? Skicka frågan till oss med mejl.</label>
+                        <p style="font-size:13px; color:#3d4a42; margin:0 0 10px;">Ditt mejlprogram öppnas med frågan ifylld. Mejlet skickas från din egen mejladress och är alltså <strong>inte anonymt</strong>.</p>
                         <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                            <input type="email" id="unansweredEmail" placeholder="din@mejl.se" style="flex:1; min-width:160px; border:1px solid #dde3de; border-radius:8px; padding:8px 12px; font-family:'Inter',sans-serif; font-size:14px;">
                             <button id="sendUnansweredBtn" style="background:#2c5f4a; color:white; border:none; border-radius:40px; padding:8px 18px; font-size:13px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif;">Skicka frågan till oss</button>
                         </div>
                     </div>
-                    <p id="unansweredThanks" style="display:none; font-size:13px; color:#2c5f4a; margin-top:4px;">Formuläret öppnades i en ny flik med din fråga redan ifylld — tryck Skicka där för att skicka in den.</p>
+                    <p id="unansweredThanks" style="display:none; font-size:13px; color:#2c5f4a; margin-top:4px;">Ditt mejlprogram öppnades med frågan ifylld — tryck Skicka där. Öppnades inget? Mejla till <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>.</p>
                 </div>
             </div>
         </div>
@@ -800,7 +800,7 @@
             <div class="links">
                 <a href="javascript:void(0)" id="openAboutLink">Om kursen</a>
                 <a href="javascript:void(0)" id="openFaqLink">FAQ</a>
-                <a href="mailto:foraldrapasset@gmail.com" id="contactLink">Kontakt</a>
+                <a href="mailto:kontakt@norvayapp.se" id="contactLink">Kontakt</a>
                 <span id="contactCopiedNote" style="display:none; font-size:12px; color:#2c5f4a; font-weight:500;">Adress kopierad ✓</span>
             </div>
         </div>
@@ -1752,7 +1752,6 @@
             if (isFallback) {
                 widget.style.display = 'block';
                 widget.dataset.question = question;
-                document.getElementById('unansweredEmail').value = '';
                 document.getElementById('unansweredForm').style.display = 'block';
                 document.getElementById('unansweredThanks').style.display = 'none';
             } else {
@@ -1783,15 +1782,13 @@
 
         document.getElementById('sendUnansweredBtn').addEventListener('click', function() {
             const question = document.getElementById('unansweredWidget').dataset.question || '';
-            const email = document.getElementById('unansweredEmail').value;
 
-            let url = 'https://docs.google.com/forms/d/e/1FAIpQLSfVgjIf17UhlE_YdGFlYtgF5y5Rt2pZJHktAlKjVXZktzD5Sw/viewform?usp=pp_url'
-                + '&entry.1690595547=' + encodeURIComponent(question);
-            if (email) {
-                url += '&entry.1313943688=' + encodeURIComponent(email);
-            }
+            // Öppnar besökarens eget mejlprogram med frågan ifylld. Inget skickas förrän hen själv trycker Skicka där.
+            const url = 'mailto:kontakt@norvayapp.se'
+                + '?subject=' + encodeURIComponent('Fråga från Föräldrapasset')
+                + '&body=' + encodeURIComponent('Min fråga:\n' + question + '\n\n');
 
-            window.open(url, '_blank');
+            window.location.href = url;
 
             document.getElementById('unansweredForm').style.display = 'none';
             document.getElementById('unansweredThanks').style.display = 'block';
@@ -2043,7 +2040,7 @@
         }
 
         document.getElementById('contactLink').addEventListener('click', function() {
-            const email = 'foraldrapasset@gmail.com';
+            const email = 'kontakt@norvayapp.se';
             const note = document.getElementById('contactCopiedNote');
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
