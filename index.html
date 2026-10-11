@@ -4,9 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Föräldrapasset</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <style>
+        /* Lokala typsnitt (inga externa anrop) */
+        @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/dm-sans-latin-400-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/dm-sans-latin-500-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/dm-sans-latin-600-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/newsreader-latin-400-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Newsreader'; font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/newsreader-latin-400-italic.woff2') format('woff2'); }
+
         /* ===== CSS ===== */
         * {
             margin: 0;
@@ -14,7 +19,7 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background: #f5f2ee;
             color: #1e2a24;
             line-height: 1.6;
@@ -42,7 +47,7 @@
             gap: 10px;
         }
         .logo {
-            font-family: 'Fraunces', serif;
+            font-family: 'Newsreader', serif;
             font-size: 28px;
             font-weight: 600;
             color: #2c5f4a;
@@ -60,7 +65,7 @@
             border-radius: 40px;
         }
         h1 {
-            font-family: 'Fraunces', serif;
+            font-family: 'Newsreader', serif;
             font-size: 32px;
             font-weight: 500;
             line-height: 1.2;
@@ -122,7 +127,7 @@
             color: #1e2a24;
             cursor: pointer;
             transition: 0.2s;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
         }
         .chat-examples .example:hover {
             background: #2c5f4a;
@@ -139,7 +144,7 @@
             border: 1px solid #dde3de;
             border-radius: 40px;
             font-size: 14px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background: white;
             outline: none;
         }
@@ -155,7 +160,7 @@
             font-weight: 500;
             font-size: 14px;
             cursor: pointer;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             transition: background 0.2s;
         }
         .chat-input-row button:hover {
@@ -236,7 +241,7 @@
             font-weight: 500;
             font-size: 14px;
             cursor: pointer;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             transition: 0.2s;
             text-align: center;
         }
@@ -290,7 +295,7 @@
             margin-bottom: 20px;
         }
         .modal-header h2 {
-            font-family: 'Fraunces', serif;
+            font-family: 'Newsreader', serif;
             font-size: 24px;
             font-weight: 500;
             color: #2c5f4a;
@@ -331,7 +336,7 @@
             padding: 6px 18px;
             font-size: 13px;
             cursor: pointer;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             transition: 0.2s;
             color: #1e2a24;
         }
@@ -368,7 +373,7 @@
             padding: 12px 16px;
             cursor: pointer;
             transition: 0.2s;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             text-align: left;
             font-size: 14px;
             color: #1e2a24;
@@ -461,7 +466,7 @@
             transition: width 0.3s ease;
         }
         .guide-step-title {
-            font-family: 'Fraunces', serif;
+            font-family: 'Newsreader', serif;
             font-weight: 500;
             font-size: 21px;
             color: #1e2a24;
@@ -490,7 +495,7 @@
             padding: 7px 18px;
             font-size: 13px;
             cursor: pointer;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             transition: 0.2s;
             color: #1e2a24;
         }
@@ -511,7 +516,7 @@
             border-top: 1px solid #dde3de;
         }
         .guide-nav button {
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             font-size: 14px;
             font-weight: 500;
             border-radius: 40px;
@@ -537,7 +542,7 @@
             background: #3d7a62;
         }
         .faq-q {
-            font-family: 'Fraunces', serif;
+            font-family: 'Newsreader', serif;
             font-weight: 500;
             font-size: 16px;
             color: #2c5f4a;
@@ -568,7 +573,7 @@
             border: 1px solid #dde3de;
             border-radius: 8px;
             padding: 9px 12px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             font-size: 14px;
             color: #1e2a24;
             background: white;
@@ -626,7 +631,7 @@
             font-weight: 500;
             font-size: 15px;
             cursor: pointer;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             transition: 0.2s;
             margin-top: 6px;
         }
@@ -637,7 +642,7 @@
             background: none;
             border: 1px solid #2c5f4a;
             color: #2c5f4a;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             font-size: 12px;
             font-weight: 500;
             padding: 5px 12px;
@@ -654,7 +659,7 @@
             background: none;
             border: 1px solid #2c5f4a;
             color: #2c5f4a;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             font-size: 12px;
             font-weight: 500;
             padding: 5px 12px;
@@ -678,8 +683,8 @@
             body * { visibility: hidden; }
             .print-summary, .print-summary * { visibility: visible; }
             .print-summary { position: absolute; top: 0; left: 0; width: 100%; padding: 20px; }
-            .print-summary h2 { font-family: 'Fraunces', serif; color: #2c5f4a; }
-            .print-summary h3 { font-family: 'Fraunces', serif; color: #2c5f4a; margin-top: 18px; font-size: 15px; }
+            .print-summary h2 { font-family: 'Newsreader', serif; color: #2c5f4a; }
+            .print-summary h3 { font-family: 'Newsreader', serif; color: #2c5f4a; margin-top: 18px; font-size: 15px; }
         }
         .footer {
             margin-top: 32px;
@@ -745,7 +750,7 @@
             <button class="action-btn" id="openReactionBtn">
                 <span class="icon">🛠️</span> Reaktionsguiden
             </button>
-            <a class="action-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfXMjmCpYPuiSi-Yg7wybaboP6EJoToshiZRPG_70tGNOA-kQ/viewform" target="_blank" rel="noopener" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">
+            <a class="action-btn" href="mailto:kontakt@norvayapp.se?subject=Feedback%20F%C3%B6r%C3%A4ldrapasset" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">
                 <span class="icon">💬</span> Ge feedback
             </a>
             <button class="action-btn" id="openNpfBtn">
@@ -787,7 +792,7 @@
                         <label class="feedback-label" style="margin-bottom:6px; display:block;">Vill du ha ett personligt svar? Skicka frågan till oss med mejl.</label>
                         <p style="font-size:13px; color:#3d4a42; margin:0 0 10px;">Ditt mejlprogram öppnas med frågan ifylld. Mejlet skickas från din egen mejladress och är alltså <strong>inte anonymt</strong>.</p>
                         <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                            <button id="sendUnansweredBtn" style="background:#2c5f4a; color:white; border:none; border-radius:40px; padding:8px 18px; font-size:13px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif;">Skicka frågan till oss</button>
+                            <button id="sendUnansweredBtn" style="background:#2c5f4a; color:white; border:none; border-radius:40px; padding:8px 18px; font-size:13px; font-weight:500; cursor:pointer; font-family:'DM Sans',sans-serif;">Skicka frågan till oss</button>
                         </div>
                     </div>
                     <p id="unansweredThanks" style="display:none; font-size:13px; color:#2c5f4a; margin-top:4px;">Ditt mejlprogram öppnades med frågan ifylld — tryck Skicka där. Öppnades inget? Mejla till <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>.</p>
@@ -923,9 +928,9 @@
 
                 <div class="feedback-field">
                     <label class="feedback-label">Mitt barns styrkor</label>
-                    <input type="text" id="mdStrengthGood" placeholder="Mitt barn är bra på..." style="width:100%; margin-bottom:8px; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'Inter',sans-serif; font-size:14px;">
-                    <input type="text" id="mdStrengthSafe" placeholder="Mitt barn känner sig tryggt när..." style="width:100%; margin-bottom:8px; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'Inter',sans-serif; font-size:14px;">
-                    <input type="text" id="mdStrengthMotivate" placeholder="Mitt barn blir motiverat av..." style="width:100%; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'Inter',sans-serif; font-size:14px;">
+                    <input type="text" id="mdStrengthGood" placeholder="Mitt barn är bra på..." style="width:100%; margin-bottom:8px; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:14px;">
+                    <input type="text" id="mdStrengthSafe" placeholder="Mitt barn känner sig tryggt när..." style="width:100%; margin-bottom:8px; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:14px;">
+                    <input type="text" id="mdStrengthMotivate" placeholder="Mitt barn blir motiverat av..." style="width:100%; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:14px;">
                 </div>
 
                 <div class="feedback-field">
