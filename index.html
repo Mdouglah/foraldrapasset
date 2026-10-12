@@ -12,6 +12,27 @@
         @font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/newsreader-latin-400-normal.woff2') format('woff2'); }
         @font-face { font-family: 'Newsreader'; font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/newsreader-latin-400-italic.woff2') format('woff2'); }
 
+        /* ===== Färger (ändra här) ===== */
+        :root {
+            --fp-page: #f5f2ee;          /* sidans bakgrund */
+            --fp-soft: #f5f2ee;          /* mjuka ytor: rutor, etiketter, knappar */
+            --fp-surface: #ffffff;       /* kort och rutor */
+            --fp-ink: #1e2a24;           /* text */
+            --fp-ink-soft: #5a6b62;      /* dämpad text */
+            --fp-ink-note: #3d4a42;      /* liten informationstext */
+            --fp-accent: #2c5f4a;        /* knappar, länkar, markeringar */
+            --fp-accent-hover: #3d7a62;  /* knapp när man håller muspekaren över */
+            --fp-on-accent: #ffffff;     /* text på accentfärg */
+            --fp-decor: #d49a4a;         /* dekor: understrykning, kantlinjer, "passet" i loggan */
+            --fp-tint: #f0f5f2;          /* ljus tonad yta */
+            --fp-line: #dde3de;          /* linjer och ramar */
+            --fp-track: #eef1ee;         /* bakgrund i förloppsmätaren */
+            --fp-warn: #b3452c;          /* varning (oroande) */
+            --fp-warn-line: #e3c4ba;
+            --fp-warn-tint: #fbf0ed;
+            --fp-shadow: 0 8px 30px rgba(44, 95, 74, 0.10);
+        }
+
         /* ===== CSS ===== */
         * {
             margin: 0;
@@ -20,8 +41,8 @@
         }
         body {
             font-family: 'DM Sans', sans-serif;
-            background: #f5f2ee;
-            color: #1e2a24;
+            background: var(--fp-page);
+            color: var(--fp-ink);
             line-height: 1.6;
             padding: 20px;
             min-height: 100vh;
@@ -33,9 +54,9 @@
         .container {
             max-width: 760px;
             width: 100%;
-            background: #ffffff;
+            background: var(--fp-surface);
             border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(44, 95, 74, 0.10);
+            box-shadow: var(--fp-shadow);
             padding: 40px 36px;
         }
         .top {
@@ -50,15 +71,15 @@
             font-family: 'Newsreader', serif;
             font-size: 28px;
             font-weight: 600;
-            color: #2c5f4a;
+            color: var(--fp-accent);
             cursor: pointer;
         }
         .logo span {
-            color: #d49a4a;
+            color: var(--fp-decor);
         }
         .badge {
-            background: #2c5f4a;
-            color: white;
+            background: var(--fp-accent);
+            color: var(--fp-on-accent);
             font-size: 13px;
             font-weight: 500;
             padding: 4px 14px;
@@ -71,25 +92,25 @@
             line-height: 1.2;
         }
         h1 .highlight {
-            color: #2c5f4a;
-            border-bottom: 3px solid #d49a4a;
+            color: var(--fp-accent);
+            border-bottom: 3px solid var(--fp-decor);
             padding-bottom: 2px;
         }
         .sub {
-            color: #5a6b62;
+            color: var(--fp-ink-soft);
             font-size: 14px;
             margin-top: 4px;
         }
         .sub span {
-            background: #f5f2ee;
+            background: var(--fp-soft);
             padding: 2px 10px;
             border-radius: 30px;
             font-weight: 500;
-            color: #2c5f4a;
+            color: var(--fp-accent);
         }
         .news {
-            background: #f0f5f2;
-            border-left: 4px solid #d49a4a;
+            background: var(--fp-tint);
+            border-left: 4px solid var(--fp-decor);
             padding: 12px 18px;
             border-radius: 10px;
             margin: 24px 0 28px;
@@ -97,18 +118,18 @@
         }
         .news .label {
             font-weight: 600;
-            color: #2c5f4a;
+            color: var(--fp-accent);
         }
         .chat-prompt {
-            background: #f5f2ee;
+            background: var(--fp-soft);
             border-radius: 12px;
             padding: 20px 24px;
-            border: 1px solid #dde3de;
+            border: 1px solid var(--fp-line);
             margin-bottom: 24px;
         }
         .chat-prompt .label {
             font-weight: 600;
-            color: #2c5f4a;
+            color: var(--fp-accent);
             margin-bottom: 12px;
             font-size: 14px;
         }
@@ -119,20 +140,20 @@
             margin-bottom: 14px;
         }
         .chat-examples .example {
-            background: white;
-            border: 1px solid #dde3de;
+            background: var(--fp-surface);
+            border: 1px solid var(--fp-line);
             border-radius: 40px;
             padding: 6px 16px;
             font-size: 13px;
-            color: #1e2a24;
+            color: var(--fp-ink);
             cursor: pointer;
             transition: 0.2s;
             font-family: 'DM Sans', sans-serif;
         }
         .chat-examples .example:hover {
-            background: #2c5f4a;
-            color: white;
-            border-color: #2c5f4a;
+            background: var(--fp-accent);
+            color: var(--fp-on-accent);
+            border-color: var(--fp-accent);
         }
         .chat-input-row {
             display: flex;
@@ -141,19 +162,19 @@
         .chat-input-row input {
             flex: 1;
             padding: 10px 16px;
-            border: 1px solid #dde3de;
+            border: 1px solid var(--fp-line);
             border-radius: 40px;
             font-size: 14px;
             font-family: 'DM Sans', sans-serif;
-            background: white;
+            background: var(--fp-surface);
             outline: none;
         }
         .chat-input-row input:focus {
-            border-color: #2c5f4a;
+            border-color: var(--fp-accent);
         }
         .chat-input-row button {
-            background: #2c5f4a;
-            color: white;
+            background: var(--fp-accent);
+            color: var(--fp-on-accent);
             border: none;
             border-radius: 40px;
             padding: 10px 24px;
@@ -164,15 +185,15 @@
             transition: background 0.2s;
         }
         .chat-input-row button:hover {
-            background: #3d7a62;
+            background: var(--fp-accent-hover);
         }
         .chat-response {
             display: none;
             margin-top: 20px;
             padding: 20px 22px;
-            background: white;
+            background: var(--fp-surface);
             border-radius: 12px;
-            border: 1px solid #dde3de;
+            border: 1px solid var(--fp-line);
             animation: fade 0.3s ease;
         }
         .chat-response.visible {
@@ -180,12 +201,12 @@
         }
         .chat-response .question {
             font-size: 14px;
-            color: #5a6b62;
+            color: var(--fp-ink-soft);
             margin-bottom: 10px;
         }
         .chat-response .answer {
             font-size: 15px;
-            color: #1e2a24;
+            color: var(--fp-ink);
             line-height: 1.7;
         }
         .chat-response .answer ul {
@@ -196,16 +217,16 @@
             margin-bottom: 4px;
         }
         .chat-response .answer .highlight-text {
-            color: #2c5f4a;
+            color: var(--fp-accent);
             font-weight: 600;
         }
         .chat-response .answer .box {
-            background: #f5f2ee;
+            background: var(--fp-soft);
             padding: 12px 16px;
             border-radius: 8px;
             margin: 10px 0;
             font-size: 14px;
-            border-left: 3px solid #d49a4a;
+            border-left: 3px solid var(--fp-decor);
         }
         .chat-response .tags {
             margin-top: 14px;
@@ -215,8 +236,8 @@
         }
         .chat-response .tags .tag {
             font-size: 12px;
-            background: #f5f2ee;
-            color: #5a6b62;
+            background: var(--fp-soft);
+            color: var(--fp-ink-soft);
             padding: 2px 12px;
             border-radius: 30px;
         }
@@ -234,8 +255,8 @@
             flex: 1;
             min-width: 140px;
             background: transparent;
-            border: 1.5px solid #2c5f4a;
-            color: #2c5f4a;
+            border: 1.5px solid var(--fp-accent);
+            color: var(--fp-accent);
             padding: 12px 18px;
             border-radius: 40px;
             font-weight: 500;
@@ -246,8 +267,8 @@
             text-align: center;
         }
         .action-btn:hover {
-            background: #2c5f4a;
-            color: white;
+            background: var(--fp-accent);
+            color: var(--fp-on-accent);
         }
         .action-btn .icon {
             margin-right: 6px;
@@ -270,7 +291,7 @@
             display: flex;
         }
         .modal-box {
-            background: white;
+            background: var(--fp-surface);
             max-width: 600px;
             width: 100%;
             border-radius: 20px;
@@ -298,30 +319,30 @@
             font-family: 'Newsreader', serif;
             font-size: 24px;
             font-weight: 500;
-            color: #2c5f4a;
+            color: var(--fp-accent);
         }
         .modal-close {
             background: none;
             border: none;
             font-size: 28px;
             cursor: pointer;
-            color: #5a6b62;
+            color: var(--fp-ink-soft);
             padding: 0 4px;
             transition: 0.2s;
         }
         .modal-close:hover {
-            color: #1e2a24;
+            color: var(--fp-ink);
         }
         .modal-disclaimer {
             font-size: 13px;
-            color: #5a6b62;
-            background: #f5f2ee;
+            color: var(--fp-ink-soft);
+            background: var(--fp-soft);
             padding: 10px 14px;
             border-radius: 8px;
             margin-bottom: 16px;
         }
         .modal-disclaimer strong {
-            color: #b3452c;
+            color: var(--fp-warn);
         }
         .reaction-categories {
             display: flex;
@@ -330,32 +351,32 @@
             margin-bottom: 20px;
         }
         .reaction-categories .cat-btn {
-            background: #f5f2ee;
-            border: 1px solid #dde3de;
+            background: var(--fp-soft);
+            border: 1px solid var(--fp-line);
             border-radius: 40px;
             padding: 6px 18px;
             font-size: 13px;
             cursor: pointer;
             font-family: 'DM Sans', sans-serif;
             transition: 0.2s;
-            color: #1e2a24;
+            color: var(--fp-ink);
         }
         .reaction-categories .cat-btn.active {
-            background: #2c5f4a;
-            color: white;
-            border-color: #2c5f4a;
+            background: var(--fp-accent);
+            color: var(--fp-on-accent);
+            border-color: var(--fp-accent);
         }
         .reaction-categories .cat-btn:hover:not(.active) {
-            border-color: #2c5f4a;
+            border-color: var(--fp-accent);
         }
         .reaction-categories .cat-btn[data-category="oroande"] {
-            border-color: #b3452c;
-            color: #b3452c;
+            border-color: var(--fp-warn);
+            color: var(--fp-warn);
         }
         .reaction-categories .cat-btn[data-category="oroande"].active {
-            background: #b3452c;
-            border-color: #b3452c;
-            color: white;
+            background: var(--fp-warn);
+            border-color: var(--fp-warn);
+            color: var(--fp-on-accent);
         }
         .reaction-list {
             display: flex;
@@ -367,8 +388,8 @@
             padding-right: 4px;
         }
         .reaction-list .reaction-item {
-            background: #f5f2ee;
-            border: 1px solid #dde3de;
+            background: var(--fp-soft);
+            border: 1px solid var(--fp-line);
             border-radius: 10px;
             padding: 12px 16px;
             cursor: pointer;
@@ -376,33 +397,33 @@
             font-family: 'DM Sans', sans-serif;
             text-align: left;
             font-size: 14px;
-            color: #1e2a24;
+            color: var(--fp-ink);
         }
         .reaction-list .reaction-item:hover {
-            border-color: #2c5f4a;
-            background: #f0f5f2;
+            border-color: var(--fp-accent);
+            background: var(--fp-tint);
         }
         .reaction-list .reaction-item.item-warning {
-            border-color: #e3c4ba;
+            border-color: var(--fp-warn-line);
         }
         .reaction-list .reaction-item.item-warning:hover {
-            border-color: #b3452c;
-            background: #fbf0ed;
+            border-color: var(--fp-warn);
+            background: var(--fp-warn-tint);
         }
         .reaction-list .reaction-item .item-label {
             font-weight: 500;
         }
         .reaction-list .reaction-item .item-desc {
             font-size: 13px;
-            color: #5a6b62;
+            color: var(--fp-ink-soft);
             font-weight: 400;
         }
         .reaction-result {
             display: none;
-            background: #f0f5f2;
+            background: var(--fp-tint);
             border-radius: 12px;
             padding: 20px 22px;
-            border-left: 4px solid #d49a4a;
+            border-left: 4px solid var(--fp-decor);
             margin-top: 8px;
             animation: fade 0.3s ease;
         }
@@ -411,65 +432,65 @@
         }
         .reaction-result .result-scenario {
             font-size: 14px;
-            color: #5a6b62;
+            color: var(--fp-ink-soft);
             margin-bottom: 6px;
         }
         .reaction-result .result-scenario strong {
-            color: #1e2a24;
+            color: var(--fp-ink);
         }
         .reaction-result .result-answer {
             font-size: 15px;
             line-height: 1.7;
         }
         .reaction-result .result-answer .box {
-            background: white;
+            background: var(--fp-surface);
             padding: 12px 16px;
             border-radius: 8px;
             margin: 8px 0;
             font-size: 14px;
-            border-left: 3px solid #d49a4a;
+            border-left: 3px solid var(--fp-decor);
         }
         .reaction-result .result-answer .box-urgent {
-            border-left: 3px solid #b3452c;
+            border-left: 3px solid var(--fp-warn);
         }
         .reaction-result .result-answer .highlight-text {
-            color: #2c5f4a;
+            color: var(--fp-accent);
             font-weight: 600;
         }
         .reaction-result .result-why {
             margin-top: 12px;
             padding-top: 12px;
-            border-top: 1px solid #dde3de;
+            border-top: 1px solid var(--fp-line);
             font-size: 14px;
-            color: #5a6b62;
+            color: var(--fp-ink-soft);
         }
         .reaction-result .result-why strong {
-            color: #1e2a24;
+            color: var(--fp-ink);
         }
         .guide-progress {
             margin-bottom: 20px;
         }
         .guide-progress-text {
             font-size: 13px;
-            color: #5a6b62;
+            color: var(--fp-ink-soft);
             margin-bottom: 6px;
         }
         .guide-progress-track {
             height: 5px;
-            background: #eef1ee;
+            background: var(--fp-track);
             border-radius: 10px;
             overflow: hidden;
         }
         .guide-progress-fill {
             height: 100%;
-            background: #2c5f4a;
+            background: var(--fp-accent);
             transition: width 0.3s ease;
         }
         .guide-step-title {
             font-family: 'Newsreader', serif;
             font-weight: 500;
             font-size: 21px;
-            color: #1e2a24;
+            color: var(--fp-ink);
             margin-bottom: 14px;
         }
         .guide-step-body {
@@ -489,23 +510,23 @@
             margin: 14px 0 4px;
         }
         .age-btn {
-            background: #f5f2ee;
-            border: 1px solid #dde3de;
+            background: var(--fp-soft);
+            border: 1px solid var(--fp-line);
             border-radius: 40px;
             padding: 7px 18px;
             font-size: 13px;
             cursor: pointer;
             font-family: 'DM Sans', sans-serif;
             transition: 0.2s;
-            color: #1e2a24;
+            color: var(--fp-ink);
         }
         .age-btn:hover {
-            border-color: #2c5f4a;
+            border-color: var(--fp-accent);
         }
         .age-btn.active {
-            background: #2c5f4a;
-            color: white;
-            border-color: #2c5f4a;
+            background: var(--fp-accent);
+            color: var(--fp-on-accent);
+            border-color: var(--fp-accent);
         }
         .guide-nav {
             display: flex;
@@ -513,7 +534,7 @@
             align-items: center;
             margin-top: 24px;
             padding-top: 16px;
-            border-top: 1px solid #dde3de;
+            border-top: 1px solid var(--fp-line);
         }
         .guide-nav button {
             font-family: 'DM Sans', sans-serif;
@@ -526,26 +547,26 @@
         }
         .guide-nav .prev-btn {
             background: none;
-            border: 1px solid #dde3de;
-            color: #5a6b62;
+            border: 1px solid var(--fp-line);
+            color: var(--fp-ink-soft);
         }
         .guide-nav .prev-btn:hover {
-            border-color: #2c5f4a;
-            color: #2c5f4a;
+            border-color: var(--fp-accent);
+            color: var(--fp-accent);
         }
         .guide-nav .next-btn {
-            background: #2c5f4a;
+            background: var(--fp-accent);
             border: none;
-            color: white;
+            color: var(--fp-on-accent);
         }
         .guide-nav .next-btn:hover {
-            background: #3d7a62;
+            background: var(--fp-accent-hover);
         }
         .faq-q {
             font-family: 'Newsreader', serif;
             font-weight: 500;
             font-size: 16px;
-            color: #2c5f4a;
+            color: var(--fp-accent);
             margin: 18px 0 6px;
         }
         .faq-q:first-child {
@@ -553,7 +574,7 @@
         }
         .faq-a {
             font-size: 14.5px;
-            color: #1e2a24;
+            color: var(--fp-ink);
         }
         .faq-a ul {
             margin: 8px 0 4px 20px;
@@ -570,19 +591,19 @@
         .feedback-field select,
         .feedback-field textarea {
             width: 100%;
-            border: 1px solid #dde3de;
+            border: 1px solid var(--fp-line);
             border-radius: 8px;
             padding: 9px 12px;
             font-family: 'DM Sans', sans-serif;
             font-size: 14px;
-            color: #1e2a24;
-            background: white;
+            color: var(--fp-ink);
+            background: var(--fp-surface);
             resize: vertical;
         }
         .feedback-field select:focus,
         .feedback-field textarea:focus {
             outline: none;
-            border-color: #2c5f4a;
+            border-color: var(--fp-accent);
         }
         .scale-row {
             display: flex;
@@ -598,16 +619,16 @@
             display: block;
             text-align: center;
             padding: 9px 0;
-            border: 1px solid #dde3de;
+            border: 1px solid var(--fp-line);
             border-radius: 8px;
             font-size: 14px;
             cursor: pointer;
             transition: 0.2s;
         }
         .scale-option input:checked + label {
-            background: #2c5f4a;
-            border-color: #2c5f4a;
-            color: white;
+            background: var(--fp-accent);
+            border-color: var(--fp-accent);
+            color: var(--fp-on-accent);
         }
         .check-row, .radio-row {
             display: flex;
@@ -623,8 +644,8 @@
         }
         .feedback-submit {
             width: 100%;
-            background: #2c5f4a;
-            color: white;
+            background: var(--fp-accent);
+            color: var(--fp-on-accent);
             border: none;
             border-radius: 40px;
             padding: 12px 0;
@@ -636,12 +657,12 @@
             margin-top: 6px;
         }
         .feedback-submit:hover {
-            background: #3d7a62;
+            background: var(--fp-accent-hover);
         }
         .copy-inline {
             background: none;
-            border: 1px solid #2c5f4a;
-            color: #2c5f4a;
+            border: 1px solid var(--fp-accent);
+            color: var(--fp-accent);
             font-family: 'DM Sans', sans-serif;
             font-size: 12px;
             font-weight: 500;
@@ -652,13 +673,13 @@
             transition: 0.2s;
         }
         .copy-inline:hover {
-            background: #2c5f4a;
-            color: white;
+            background: var(--fp-accent);
+            color: var(--fp-on-accent);
         }
         .util-btn {
             background: none;
-            border: 1px solid #2c5f4a;
-            color: #2c5f4a;
+            border: 1px solid var(--fp-accent);
+            color: var(--fp-accent);
             font-family: 'DM Sans', sans-serif;
             font-size: 12px;
             font-weight: 500;
@@ -668,13 +689,13 @@
             transition: 0.2s;
         }
         .util-btn:hover {
-            background: #2c5f4a;
-            color: white;
+            background: var(--fp-accent);
+            color: var(--fp-on-accent);
         }
         .npf-category {
             margin-bottom: 28px;
             padding-bottom: 22px;
-            border-bottom: 1px solid #dde3de;
+            border-bottom: 1px solid var(--fp-line);
         }
         .npf-category:last-of-type {
             border-bottom: none;
@@ -683,34 +704,34 @@
             body * { visibility: hidden; }
             .print-summary, .print-summary * { visibility: visible; }
             .print-summary { position: absolute; top: 0; left: 0; width: 100%; padding: 20px; }
-            .print-summary h2 { font-family: 'Newsreader', serif; color: #2c5f4a; }
-            .print-summary h3 { font-family: 'Newsreader', serif; color: #2c5f4a; margin-top: 18px; font-size: 15px; }
+            .print-summary h2 { font-family: 'Newsreader', serif; color: var(--fp-accent); }
+            .print-summary h3 { font-family: 'Newsreader', serif; color: var(--fp-accent); margin-top: 18px; font-size: 15px; }
         }
         .footer {
             margin-top: 32px;
             padding-top: 18px;
-            border-top: 1px solid #dde3de;
+            border-top: 1px solid var(--fp-line);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
             font-size: 14px;
-            color: #5a6b62;
+            color: var(--fp-ink-soft);
         }
         .footer .by strong {
-            color: #2c5f4a;
+            color: var(--fp-accent);
         }
         .footer .links {
             display: flex;
             gap: 18px;
         }
         .footer .links a {
-            color: #5a6b62;
+            color: var(--fp-ink-soft);
             text-decoration: none;
         }
         .footer .links a:hover {
-            color: #2c5f4a;
+            color: var(--fp-accent);
         }
         @media (max-width: 600px) {
             .container { padding: 20px 16px; }
@@ -756,7 +777,7 @@
         <h1>
             Vägledning för <span class="highlight">föräldrar</span> som vill nå fram
         </h1>
-        <p style="color:#5a6b62; font-size:17px;">Skolan · Samtalet · Gränser · Rättigheter</p>
+        <p style="color:var(--fp-ink-soft); font-size:17px;">Skolan · Samtalet · Gränser · Rättigheter</p>
         <div class="sub">
             <span>Barn 6–16 år</span> &nbsp;·&nbsp; 
         </div>
@@ -807,15 +828,15 @@
                 <div class="answer" id="responseAnswer"></div>
                 <div class="tags" id="responseTags"></div>
 
-                <div id="unansweredWidget" style="display:none; margin-top:14px; padding-top:14px; border-top:1px solid #dde3de;">
+                <div id="unansweredWidget" style="display:none; margin-top:14px; padding-top:14px; border-top:1px solid var(--fp-line);">
                     <div id="unansweredForm">
                         <label class="feedback-label" style="margin-bottom:6px; display:block;">Vill du ha ett personligt svar? Skicka frågan till oss med mejl.</label>
-                        <p style="font-size:13px; color:#3d4a42; margin:0 0 10px;">Ditt mejlprogram öppnas med frågan ifylld. Mejlet skickas från din egen mejladress och är alltså <strong>inte anonymt</strong>.</p>
+                        <p style="font-size:13px; color:var(--fp-ink-note); margin:0 0 10px;">Ditt mejlprogram öppnas med frågan ifylld. Mejlet skickas från din egen mejladress och är alltså <strong>inte anonymt</strong>.</p>
                         <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                            <button id="sendUnansweredBtn" style="background:#2c5f4a; color:white; border:none; border-radius:40px; padding:8px 18px; font-size:13px; font-weight:500; cursor:pointer; font-family:'DM Sans',sans-serif;">Skicka frågan till oss</button>
+                            <button id="sendUnansweredBtn" style="background:var(--fp-accent); color:var(--fp-on-accent); border:none; border-radius:40px; padding:8px 18px; font-size:13px; font-weight:500; cursor:pointer; font-family:'DM Sans',sans-serif;">Skicka frågan till oss</button>
                         </div>
                     </div>
-                    <p id="unansweredThanks" style="display:none; font-size:13px; color:#2c5f4a; margin-top:4px;">Ditt mejlprogram öppnades med frågan ifylld — tryck Skicka där. Öppnades inget? Mejla till <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>.</p>
+                    <p id="unansweredThanks" style="display:none; font-size:13px; color:var(--fp-accent); margin-top:4px;">Ditt mejlprogram öppnades med frågan ifylld — tryck Skicka där. Öppnades inget? Mejla till <a href="mailto:kontakt@norvayapp.se">kontakt@norvayapp.se</a>.</p>
                 </div>
             </div>
         </div>
@@ -826,7 +847,7 @@
                 <a href="javascript:void(0)" id="openAboutLink">Om kursen</a>
                 <a href="javascript:void(0)" id="openFaqLink">FAQ</a>
                 <a href="mailto:kontakt@norvayapp.se" id="contactLink">Kontakt</a>
-                <span id="contactCopiedNote" style="display:none; font-size:12px; color:#2c5f4a; font-weight:500;">Adress kopierad ✓</span>
+                <span id="contactCopiedNote" style="display:none; font-size:12px; color:var(--fp-accent); font-weight:500;">Adress kopierad ✓</span>
             </div>
         </div>
 
@@ -840,7 +861,7 @@
                 <button class="modal-close" id="closeAboutBtn">✕</button>
             </div>
 
-            <p style="font-size:16px; color:#1e2a24; margin-bottom:18px; line-height:1.6;">
+            <p style="font-size:16px; color:var(--fp-ink); margin-bottom:18px; line-height:1.6;">
                 <strong>Du är inte ensam — och du behöver inte ha alla svar själv.</strong>
             </p>
 
@@ -924,7 +945,7 @@
             </div>
 
             <div id="meetingDocFormWrap">
-                <p style="font-size:14px; color:#5a6b62; margin-bottom:18px;">
+                <p style="font-size:14px; color:var(--fp-ink-soft); margin-bottom:18px;">
                     Fyll i det här inför ett möte med skolan. Du behöver inte veta lösningen — ditt viktigaste jobb är att kunna beskriva vad ni ser hemma, vad barnet berättar, och vad som fungerar eller inte.
                 </p>
 
@@ -948,9 +969,9 @@
 
                 <div class="feedback-field">
                     <label class="feedback-label">Mitt barns styrkor</label>
-                    <input type="text" id="mdStrengthGood" placeholder="Mitt barn är bra på..." style="width:100%; margin-bottom:8px; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:14px;">
-                    <input type="text" id="mdStrengthSafe" placeholder="Mitt barn känner sig tryggt när..." style="width:100%; margin-bottom:8px; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:14px;">
-                    <input type="text" id="mdStrengthMotivate" placeholder="Mitt barn blir motiverat av..." style="width:100%; border:1px solid #dde3de; border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:14px;">
+                    <input type="text" id="mdStrengthGood" placeholder="Mitt barn är bra på..." style="width:100%; margin-bottom:8px; border:1px solid var(--fp-line); border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:14px;">
+                    <input type="text" id="mdStrengthSafe" placeholder="Mitt barn känner sig tryggt när..." style="width:100%; margin-bottom:8px; border:1px solid var(--fp-line); border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:14px;">
+                    <input type="text" id="mdStrengthMotivate" placeholder="Mitt barn blir motiverat av..." style="width:100%; border:1px solid var(--fp-line); border-radius:8px; padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:14px;">
                 </div>
 
                 <div class="feedback-field">
@@ -1007,7 +1028,7 @@
                 <label><input type="checkbox"> Hjälp att förstå situationen</label>
                 <label><input type="checkbox"> Hjälp att hantera konflikter hemma</label>
             </div>
-            <p style="font-size:13px; color:#5a6b62;">Det här sparas ingenstans — bara en stund för dig att reflektera.</p>
+            <p style="font-size:13px; color:var(--fp-ink-soft);">Det här sparas ingenstans — bara en stund för dig att reflektera.</p>
         </div>
     </div>
 
@@ -1137,7 +1158,7 @@
                 <button class="modal-close" id="closeReactionBtn">✕</button>
             </div>
 
-            <p style="font-size:14px; color:#5a6b62; margin-bottom:12px;">
+            <p style="font-size:14px; color:var(--fp-ink-soft); margin-bottom:12px;">
                 Välj vad ditt barn säger eller gör — och få ett förslag på svar.
             </p>
 
@@ -1497,27 +1518,27 @@
                     <p><span class="highlight-text">Kärnbudskapet i alla liknelser:</span> skolan är redan betald och redan din — frågan är bara om du tar för dig av den.</p>
 
                     <div class="box">
-                        <strong>🎬 Biobiljetten</strong> <em style="color:#5a6b62;">(passar de flesta åldrar)</em><br>
+                        <strong>🎬 Biobiljetten</strong> <em style="color:var(--fp-ink-soft);">(passar de flesta åldrar)</em><br>
                         "Tänk dig att du har köpt en biobiljett för 100 kronor. Ingen tvingar dig att gå in och se filmen — men pengarna är redan borta, oavsett om du sätter dig i salongen eller inte. Skolan fungerar på samma sätt: dina föräldrar har redan betalat för den genom skatten, varje dag, oavsett om du är där eller inte. Att stanna hemma är som att stå utanför biosalongen med biljetten i fickan — du får inte pengarna tillbaka, du bara missar filmen."
                     </div>
 
                     <div class="box">
-                        <strong>🍽️ Buffén</strong> <em style="color:#5a6b62;">(passar yngre barn)</em><br>
+                        <strong>🍽️ Buffén</strong> <em style="color:var(--fp-ink-soft);">(passar yngre barn)</em><br>
                         "Tänk dig att ni är på en buffé där maten kostar samma oavsett hur mycket du äter. Om du bara sitter vid bordet och inte tar någon mat blir du bara hungrig — trots att all mat fanns där hela tiden, redan betald."
                     </div>
 
                     <div class="box">
-                        <strong>🏋️ Gymkortet</strong> <em style="color:#5a6b62;">(passar tonåringar)</em><br>
+                        <strong>🏋️ Gymkortet</strong> <em style="color:var(--fp-ink-soft);">(passar tonåringar)</em><br>
                         "Tänk dig att du har ett årskort på gymmet, redan betalt för hela året. Går du inte dit på en månad förlorar du inga pengar direkt — men du missar chansen att bli starkare, som redan väntar på dig i kortet du har i plånboken."
                     </div>
 
                     <div class="box">
-                        <strong>☀️ Sommarsemestern</strong> <em style="color:#5a6b62;">(bra när det handlar mer om känsla än pengar)</em><br>
+                        <strong>☀️ Sommarsemestern</strong> <em style="color:var(--fp-ink-soft);">(bra när det handlar mer om känsla än pengar)</em><br>
                         "Tänk dig att familjen bokat och betalat en veckas resa med pool och utflykter. Väljer du att ligga på rummet hela veckan istället för att gå ut, får ingen pengarna tillbaka. Du är bara den enda som missar semestern — fast den redan är din."
                     </div>
 
                     <div class="box">
-                        <strong>📱 Mobildatan</strong> <em style="color:#5a6b62;">(passar tonåringar)</em><br>
+                        <strong>📱 Mobildatan</strong> <em style="color:var(--fp-ink-soft);">(passar tonåringar)</em><br>
                         "Tänk dig att du har ett abonnemang med mängder av surf inkluderat varje månad, redan betalt. Ligger mobilen i lådan hela månaden och du inte använder datan, får du inte pengarna tillbaka nästa månad. Datan försvinner bara, oanvänd."
                     </div>
 
@@ -1847,7 +1868,7 @@
             });
 
             if (filtered.length === 0) {
-                list.innerHTML = `<p style="color:#5a6b62; font-size:14px; padding:10px;">Inga scenarier i denna kategori ännu.</p>`;
+                list.innerHTML = `<p style="color:var(--fp-ink-soft); font-size:14px; padding:10px;">Inga scenarier i denna kategori ännu.</p>`;
             }
         }
 
@@ -1864,8 +1885,8 @@
             result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
             document.querySelectorAll('.reaction-item').forEach(el => {
-                el.style.borderColor = parseInt(el.dataset.id) === id ? '#2c5f4a' : '#dde3de';
-                el.style.background = parseInt(el.dataset.id) === id ? '#f0f5f2' : '#f5f2ee';
+                el.style.borderColor = parseInt(el.dataset.id) === id ? 'var(--fp-accent)' : 'var(--fp-line)';
+                el.style.background = parseInt(el.dataset.id) === id ? 'var(--fp-tint)' : 'var(--fp-soft)';
             });
         }
 
@@ -1955,7 +1976,7 @@
 
             const summary =
                 '<h2>Mötesunderlag – Föräldrapasset</h2>' +
-                '<p style="color:#5a6b62; font-size:13px;">Skapat ' + dateStr + '</p>' +
+                '<p style="color:var(--fp-ink-soft); font-size:13px;">Skapat ' + dateStr + '</p>' +
                 '<h3>Vad vi ser hemma</h3><ul>' + checksHtml + '</ul>' +
                 '<h3>Vad barnet själv berättar</h3><p>' + childSays + '</p>' +
                 '<h3>Mitt barns styrkor</h3><ul>' + strengthsHtml + '</ul>' +
