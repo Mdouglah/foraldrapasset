@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="sv" data-kategori="familj">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,25 +12,45 @@
         @font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/newsreader-latin-400-normal.woff2') format('woff2'); }
         @font-face { font-family: 'Newsreader'; font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/newsreader-latin-400-italic.woff2') format('woff2'); }
 
-        /* ===== Färger (ändra här) ===== */
+        /* ===== Norvay-tema (samma som kuratorn-allman/src/theme.css) ===== */
         :root {
-            --fp-page: #f5f2ee;          /* sidans bakgrund */
-            --fp-soft: #f5f2ee;          /* mjuka ytor: rutor, etiketter, knappar */
-            --fp-surface: #ffffff;       /* kort och rutor */
-            --fp-ink: #1e2a24;           /* text */
-            --fp-ink-soft: #5a6b62;      /* dämpad text */
-            --fp-ink-note: #3d4a42;      /* liten informationstext */
-            --fp-accent: #2c5f4a;        /* knappar, länkar, markeringar */
-            --fp-accent-hover: #3d7a62;  /* knapp när man håller muspekaren över */
-            --fp-on-accent: #ffffff;     /* text på accentfärg */
-            --fp-decor: #d49a4a;         /* dekor: understrykning, kantlinjer, "passet" i loggan */
-            --fp-tint: #f0f5f2;          /* ljus tonad yta */
-            --fp-line: #dde3de;          /* linjer och ramar */
-            --fp-track: #eef1ee;         /* bakgrund i förloppsmätaren */
-            --fp-warn: #b3452c;          /* varning (oroande) */
+            --n-bg: #f5f3ec;
+            --n-surface: #ffffff;
+            --n-ink: #123f37;
+            --n-ink-soft: #4f6b63;
+            --n-line: rgba(18, 63, 55, 0.14);
+            --n-terracotta: #c9785f;       /* bara för stor text och former */
+            --n-terracotta-soft: #dd9479;
+            --n-radius: 20px;
+            --n-radius-sm: 12px;
+            --n-font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+            --n-font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --n-accent: #2f6b5a;
+            --n-tint: #d7e2d7;
+            --n-on-accent: #ffffff;
+        }
+        [data-kategori="familj"] { --n-accent: #6f5f8f; --n-tint: #e4dfec; }
+
+        /* ===== Färger (ändra här) – kopplade till Norvay-temat ===== */
+        :root {
+            --fp-page: var(--n-bg);              /* sidans bakgrund */
+            --fp-soft: var(--n-bg);              /* mjuka ytor: rutor, etiketter, knappar */
+            --fp-surface: var(--n-surface);      /* kort och rutor */
+            --fp-ink: var(--n-ink);              /* text */
+            --fp-ink-soft: var(--n-ink-soft);    /* dämpad text */
+            --fp-ink-note: var(--n-ink-soft);    /* liten informationstext */
+            --fp-accent: var(--n-accent);        /* familj: knappar, länkar, markeringar */
+            --fp-accent-hover: #5d4e7b;          /* något mörkare accent vid hovring */
+            --fp-on-accent: #ffffff;             /* text på accentfärg */
+            --fp-decor: var(--n-accent);         /* kantlinjer i rutor (terrakotta används bara på stora rubriker) */
+            --fp-tint: var(--n-tint);            /* familj: ljus tonad yta */
+            --fp-line: rgba(18, 63, 55, 0.14);   /* linjer och ramar */
+            --fp-track: var(--n-tint);                 /* bakgrund i förloppsmätaren */
+            --fp-warn: #b3452c;                  /* varning (oroande) – oförändrad */
             --fp-warn-line: #e3c4ba;
             --fp-warn-tint: #fbf0ed;
-            --fp-shadow: 0 8px 30px rgba(44, 95, 74, 0.10);
+            --fp-shadow: none;                   /* Norvay-kort har ram i stället för skugga */
+            --fp-terracotta-ink: #a4533c;        /* mörkare terrakotta för stor rubrik på tonad yta (kontrast) */
         }
 
         /* ===== CSS ===== */
@@ -744,6 +764,43 @@
             .action-btn { min-width: 100%; }
         }
 
+        /* ===== Norvay-tema: utseende (bygger på variablerna överst) ===== */
+        body { font-family: var(--n-font-body); color: var(--n-ink); }
+        .container { border: 1px solid var(--n-line); border-radius: var(--n-radius); }
+        .logo, h1, .modal-header h2, .guide-step-title, .faq-q { font-family: var(--n-font-display); font-weight: 400; }
+        .logo { color: var(--n-ink); }
+        .logo span { color: var(--n-terracotta); }   /* stor text (28 px) – terrakotta tillåten */
+
+        /* Sidhuvud: layout "band" med formen "quarter" */
+        .n-hero--band {
+            background: var(--n-tint); border-radius: 32px; padding: 36px 36px 32px;
+            display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center;
+            margin-bottom: 8px;
+        }
+        .n-hero--band h1 { font-size: clamp(2rem, 5vw, 2.75rem); line-height: 1.08; letter-spacing: -0.01em; color: var(--n-ink); margin: 0 0 12px; }
+        .n-hero--band h1 em { font-style: italic; color: var(--fp-terracotta-ink); }
+        .n-hero--band .fp-hero-lead { color: var(--n-ink) !important; }
+        .n-hero--band .sub { margin-top: 12px; }
+        .n-motif { position: relative; width: 140px; aspect-ratio: 1; }
+        .n-motif::before, .n-motif::after { content: ""; position: absolute; }
+        .n-motif--quarter::before { inset: 10% 0 0 10%; background: var(--n-bg); border-radius: 100% 0 0 0; }  /* ljus mot det tonade bandet */
+        .n-motif--quarter::after  { width: 22%; aspect-ratio: 1; background: var(--n-accent); border-radius: 50%; left: 6%; top: 6%; }
+
+        /* Rundade kort och fält */
+        .chat-prompt, .chat-response, .reaction-result { border-radius: var(--n-radius); }
+        .reaction-list .reaction-item, .feedback-field select, .feedback-field textarea, .scale-option label,
+        .modal-disclaimer, .chat-response .answer .box, .reaction-result .result-answer .box, .news { border-radius: var(--n-radius-sm); }
+
+        /* Tillgänglighet */
+        :focus-visible { outline: 3px solid var(--n-accent); outline-offset: 3px; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
+        @media (max-width: 600px) {
+            .n-hero--band { grid-template-columns: 1fr; padding: 28px 22px; border-radius: 24px; }
+            .n-motif { width: 96px; order: -1; }
+        }
+
         /* Gemensam Norvay-list överst. Nollställer det appens egna stilar kan ge, så att listen ser likadan ut i alla appar. */
         .norvay-bar, .norvay-bar * { margin: 0; text-transform: none; font-style: normal; }
         .norvay-bar { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 44px; padding: 8px 20px; background: #f5f3ec; border-bottom: 1px solid rgba(18,63,55,0.14); font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.2; }
@@ -774,13 +831,18 @@
             <div class="badge">✨ Beta</div>
         </div>
 
-        <h1>
-            Vägledning för <span class="highlight">föräldrar</span> som vill nå fram
-        </h1>
-        <p style="color:var(--fp-ink-soft); font-size:17px;">Skolan · Samtalet · Gränser · Rättigheter</p>
-        <div class="sub">
-            <span>Barn 6–16 år</span> &nbsp;·&nbsp; 
-        </div>
+        <section class="n-hero--band">
+            <div>
+                <h1>
+                    Vägledning för <em>föräldrar</em> som vill nå fram
+                </h1>
+                <p class="fp-hero-lead" style="color:var(--fp-ink-soft); font-size:17px;">Skolan · Samtalet · Gränser · Rättigheter</p>
+                <div class="sub">
+                    <span>Barn 6–16 år</span> &nbsp;·&nbsp;
+                </div>
+            </div>
+            <div class="n-motif n-motif--quarter" aria-hidden="true"></div>
+        </section>
 
        
 
